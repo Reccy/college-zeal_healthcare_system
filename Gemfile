@@ -55,3 +55,17 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # User handling gem
 gem 'devise'
+
+# Sprockets-Rails for Bootstrap
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+
+# Bootstrap
+gem 'bootstrap', '~> 4.0.0'
+
+# JQuery
+gem 'jquery-rails'
+
+# Bootstrap Form builder
+gem "bootstrap_form",
+    git: "https://github.com/bootstrap-ruby/bootstrap_form.git",
+    branch: "master"

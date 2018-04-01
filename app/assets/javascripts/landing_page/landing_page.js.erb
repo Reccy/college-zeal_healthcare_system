@@ -1,0 +1,13 @@
+(function($) {
+  "use strict"; // Start of use strict
+  
+  // Vide - Video Background Settings
+  $(function() {
+    $('body').vide({
+	  mp4: "<%= asset_path('landing_page_background.mp4') %>",
+	  poster: "<%= asset_path('landing_page_background.png') %>"
+	}, {
+	  posterType: 'png'
+	});
+  });
+})(jQuery); // End of use strict

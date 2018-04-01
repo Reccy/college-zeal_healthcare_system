@@ -1,0 +1,10 @@
+<!-- <p class="mb-5">Connecting professional medical staff to centralized patient records across multiple medical centers all around the world.</p> -->
+<p class="mb-5">Providing professional medical staff a centralized database of patient records across the globe.</p>
+<br>
+<% if @user.nil? %>
+	<%= link_to("Login", new_doctor_session_path, :class => "btn btn-secondary btn-block") %>
+	<%= link_to("Register", new_doctor_registration_path, :class => "btn btn-secondary btn-block") %>
+<% else %>
+	<p>You're logged in, <%= @user.first_name %>!</p>
+	<%= link_to("Logout", destroy_doctor_session_path, :class => "btn btn-secondary btn-block") %>
+<% end %>

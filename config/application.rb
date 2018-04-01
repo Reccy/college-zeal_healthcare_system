@@ -14,5 +14,14 @@ module ZealHealthcareSystem
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # Sets Devise layouts
+    config.to_prepare do
+	    Devise::SessionsController.layout "landing_page"
+	    Devise::RegistrationsController.layout "landing_page"
+	    Devise::ConfirmationsController.layout "landing_page"
+	    Devise::UnlocksController.layout "landing_page"
+	    Devise::PasswordsController.layout "landing_page"
+	end
   end
 end
