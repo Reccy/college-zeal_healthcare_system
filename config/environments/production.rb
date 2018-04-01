@@ -76,6 +76,9 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
+  # Default URL set for devise gem.
+  config.action_mailer.default_url_options = { host: 'https://zeal-healthcare-system.herokuapp.com', port: 3000 }
+
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
