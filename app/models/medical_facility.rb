@@ -1,0 +1,2 @@
+class MedicalFacility < ApplicationRecord
+end

@@ -6,5 +6,9 @@
 	<%= link_to("Register", new_doctor_registration_path, :class => "btn btn-secondary btn-block") %>
 <% else %>
 	<p>You're logged in, <%= @user.first_name %>!</p>
+	<% if @user.superuser? %>
+		<p>You are logged in as a superuser.</p>
+	<% end %>
+	<%= link_to("Open ZEAL", '/facilities', :class => "btn btn-secondary btn-block") %>
 	<%= link_to("Logout", destroy_doctor_session_path, :class => "btn btn-secondary btn-block") %>
 <% end %>

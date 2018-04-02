@@ -15,5 +15,4 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
-//= require vide.jquery.js
-//= require_tree .
+//= require_tree ./application
