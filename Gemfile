@@ -69,3 +69,9 @@ gem 'jquery-rails'
 gem "bootstrap_form",
     git: "https://github.com/bootstrap-ruby/bootstrap_form.git",
     branch: "master"
+
+# Mailjet for SMTP ActionMailer
+gem 'mailjet'
+
+# Figaro for secure config
+gem 'figaro'

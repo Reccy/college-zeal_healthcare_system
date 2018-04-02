@@ -77,7 +77,7 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Default URL set for devise gem.
-  config.action_mailer.default_url_options = { host: 'https://zeal-healthcare-system.herokuapp.com', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'https://zeal-healthcare-system.herokuapp.com' }
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
@@ -91,4 +91,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Action mailer config
+  config.action_mailer.delivery_method = :mailjet
 end
