@@ -8,7 +8,56 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body style="background: url(<%= asset_path('background_bright_squares.png') %>">
+  	<!-- Navigation Bar -->
+	<nav class="navbar navbar-expand-lg bg-secondary mb-3">
+		<div class="container">
+			<!-- ZEAL Logo -->
+			<a class="navbar-brand" href="#">
+				<img src=<%= asset_path('logo_nosub.png') %> height="30" alt="">
+			</a>
+
+			<!-- Search Bar -->
+			<ul class="navbar-nav ml-auto">
+		    	<form class="form-inline">
+					<input class="form-control mr-sm-2" type="search" placeholder="Doctors, Clinics..." aria-label="Doctors, Clinics...">
+					<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+				</form>
+		    </ul>
+
+			<!-- Hamburger Icon -->
+			<button class="ml-auto navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<!-- The rest of the Navbar -->
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+		        <ul class="navbar-nav ml-auto">
+		            <li class="nav-item">
+		                <a class="nav-link" href="#">Home</a>
+		            </li>
+		            <li class="nav-item">
+		                <a class="nav-link" href="#">My Account</a>
+		            </li>
+		            <li class="nav-item">
+		                <a class="nav-link" href=<%= destroy_doctor_session_path %>>Logout</a>
+		            </li>
+		        </ul>
+		    </div>
+		</div>
+	</nav>
+  	
+  	<!-- Body content -->
+  	<div class="container mb-3")">
+	    <%= yield %>
+  	</div>
+
+  	<!-- Footer -->
+  	<footer class="bg-secondary text-muted fixed-bottom clearfix pt-3 pb-3">
+  		<div class="container">
+  			<a class="nav-link" href="https://twitter.com/TheReccy">Copyright 2018 - Aaron Meaney</a>
+  		</div>
+  	</footer>
   </body>
 </html>

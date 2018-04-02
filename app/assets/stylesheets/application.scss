@@ -1,14 +1,42 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- */
+/* Overrides */
+
+$ash-gray: #B5B7B9;
+$trolley-gray: #7D8185;
+$onyx: #343A40;
+$persian-orange: #CD9557;
+$solid-pink: #8C2F39;
+$white: #FFFFFF;
+$red: #FF0000;
+
+$theme-colors: (
+  "primary": $persian-orange,
+  "secondary": $onyx
+);
+
+body {
+	font-family: "Garamond" !important;
+}
+
+$body-bg: $ash-gray;
+
+a {
+	color: map-get($theme-colors, "primary");
+}
+
+.btn:hover {
+	color: $white !important;
+}
+
+/* Change the color of the hamburger (Source: https://stackoverflow.com/questions/42586729/bootstrap-4-change-hamburger-toggler-color) */
+$hamburger-color: map-get($theme-colors, "primary");
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$hamburger-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.custom-toggler.navbar-toggler {
+  border-color: map-get($theme-colors, "primary");
+} 
+
+/* Imports */
 @import "bootstrap";

@@ -1,4 +1,3 @@
-<!-- <p class="mb-5">Connecting professional medical staff to centralized patient records across multiple medical centers all around the world.</p> -->
 <p class="mb-5">Providing a centralized database of patient records to professional medical staff across the globe.</p>
 <br>
 <% if @user.nil? %>
@@ -12,3 +11,4 @@
 	<%= link_to("Open ZEAL", '/facilities', :class => "btn btn-secondary btn-block") %>
 	<%= link_to("Logout", destroy_doctor_session_path, :class => "btn btn-secondary btn-block") %>
 <% end %>
+
