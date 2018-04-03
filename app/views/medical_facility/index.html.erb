@@ -1,6 +1,54 @@
 <div class="row">
 	<div class="col">
 		<h1>Medical Facilities</h1>
-		<p>This web page is under construction...</p>
+	</div>
+</div>
+
+<div class="row">
+
+	<div class="col-sm-12 col-md-8 mb-3">
+		<!-- Map -->
+		<h2>Facility Map</h2>
+		<div id="map-container" class="z-depth-1" style="height: 350px"></div>
+
+		<!-- Facility Details -->
+		<h3 class="mt-3">Somewhere Clinic</h3>
+		<p>12 Somewhere Street, Placeholder Ave.</p>
+		<strong>Description</strong><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique numquam, quae. Quia quos, laudantium, fugiat minima, et ipsa ducimus quo quibusdam iste tempore iure. Incidunt modi natus assumenda, distinctio aliquam.</p>
+
+		<button class="btn btn-primary my-2 my-sm-0" type="submit">More Details</button>
+
+		<!-- Superuser Controls for currently selected Facility -->
+		<% if current_doctor.superuser? %>
+			<button class="btn btn-superuser my-2 my-sm-0" type="submit">Edit</button>
+			<button class="btn btn-superuser my-2 my-sm-0" type="submit">Delete</button>
+		<% end %>
+	</div>
+	
+	<!-- Facility List -->
+	<div class="col-sm-12 col-md-4">
+		<h2>List of Facilities</h2>
+		
+		<!-- Superuser Controls for creating new Facility -->
+		<% if current_doctor.superuser? %>
+			<button class="btn btn-sm btn-block btn-superuser type="submit">Create New Facility</button>
+		<% end %>
+
+		<!-- Dropdown -->
+		<div class="input-group mt-3 mb-3">
+			<div class="input-group-prepend">
+				<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hospitals</button>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" href="#">Hospitals</a>
+					<a class="dropdown-item" href="#">Clinics</a>
+				</div>
+			</div>
+			<input type="text" class="form-control" placeholder="Search" aria-label="Text input with dropdown button">
+		</div>
+
+		<%= render partial: "facility_card", locals: {facility_name: "Somewhere Clinic", facility_address: "12 Somewhere Street, Placeholder Ave."} %>
+		<%= render partial: "facility_card", locals: {facility_name: "Someplace Central Hospital", facility_address: "15 Somehplace Road, Placeholder Lane"} %>
+		<%= render partial: "facility_card", locals: {facility_name: "P Medical Center", facility_address: "P Lace, Holder Road"} %>
+		<%= render partial: "facility_card", locals: {facility_name: "P Medical Center", facility_address: "P Lace, Holder Road"} %>
 	</div>
 </div>

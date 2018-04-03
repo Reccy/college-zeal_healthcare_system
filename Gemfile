@@ -75,3 +75,6 @@ gem 'mailjet'
 
 # Figaro for secure config
 gem 'figaro'
+
+# Possessive inflection (E.g. Aaron's Rail project as opposed to Aaron Rail Project)
+gem "possessive"

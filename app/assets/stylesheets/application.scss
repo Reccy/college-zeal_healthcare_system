@@ -10,7 +10,8 @@ $red: #FF0000;
 
 $theme-colors: (
   "primary": $persian-orange,
-  "secondary": $onyx
+  "secondary": $onyx,
+  "superuser": $solid-pink
 );
 
 body {
@@ -25,6 +26,15 @@ a {
 
 .btn:hover {
 	color: $white !important;
+}
+
+.btn-primary {
+	color: $white !important;
+}
+
+.btn-superuser {
+	@extend .btn-primary;
+	color: map-get($theme-colors, "superuser");
 }
 
 /* Change the color of the hamburger (Source: https://stackoverflow.com/questions/42586729/bootstrap-4-change-hamburger-toggler-color) */
