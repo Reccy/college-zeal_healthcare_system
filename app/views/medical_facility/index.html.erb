@@ -55,10 +55,9 @@
 			<input type="text" class="form-control" placeholder="Search" aria-label="Text input with dropdown button">
 		</div>
 
-		<%= render partial: "facility_card", locals: {facility_name: "Somewhere Clinic", facility_address: "12 Somewhere Street, Placeholder Ave."} %>
-		<%= render partial: "facility_card", locals: {facility_name: "Someplace Central Hospital", facility_address: "15 Somehplace Road, Placeholder Lane"} %>
-		<%= render partial: "facility_card", locals: {facility_name: "P Medical Center", facility_address: "P Lace, Holder Road"} %>
-		<%= render partial: "facility_card", locals: {facility_name: "P Medical Center", facility_address: "P Lace, Holder Road"} %>
+		<% @medical_facilities.each do |facility| %>
+			<%= render partial: "facility_card", locals: {facility: facility} %>
+		<% end %>
 	</div>
 
 	<!--########-->

@@ -36,7 +36,7 @@ $.getScript('https://maps.google.com/maps/api/js?key=<%= Figaro.env.google_maps_
 });
 
 // Adds a marker to the map and adds an OnClick listener to manage selected marker
-function addMarker(lat, lng, array_id) {
+function addMarker(lat, lng, array_id, db_id) {
 
 	console.log("Adding marker " + lat + ", " + lng + ", id: " + array_id);
 
@@ -46,9 +46,6 @@ function addMarker(lat, lng, array_id) {
 	});
 
 	marker.addListener('click', function() {
-		map.setZoom(15);
-		map.setCenter(marker.getPosition());
-
 		var clickEvent = new CustomEvent("googlemaps-marker-click", {
 			detail: {
 				array_id: array_id,
@@ -59,7 +56,7 @@ function addMarker(lat, lng, array_id) {
 		window.dispatchEvent(clickEvent);
 	});
 
-  markers.push({ array_id: array_id, markerObject: marker});
+  markers.push({ array_id: array_id, db_id: db_id, markerObject: marker});
 }
 
 ///
@@ -71,11 +68,13 @@ var selectedFacility = null;
 // Adds the Facilities from the ActiveRecord DB to the map
 function populateFacilities() {
 	facilities = medical_facilities;
-	console.log(facilities);
+
 	for (var i = 0; i < facilities.length; i++)
 	{
 		f = facilities[i];
-		addMarker(f.latitude, f.longitude, i);
+
+		// Populate map
+		addMarker(f.latitude, f.longitude, i, f.id);
 	}
 }
 
@@ -89,6 +88,9 @@ function onMarkerSelected(e) {
 function selectFacility(e) {
 	selectedFacility = e
 
+	map.setZoom(15);
+	map.setCenter(getMarkerByDbId(e.id).getPosition());
+
 	// Update info panel
 	$(".medical-facility-selection").show();
 	$(".facility-details-name").text(selectedFacility.name);
@@ -101,4 +103,31 @@ function selectFacility(e) {
 	$(".medical-facility-btn-edit").attr("href", Routes.edit_medical_facility_path(selectedFacility.id));
 	
 	$(".medical-facility-btn-destroy").attr("href", Routes.medical_facility_path(selectedFacility.id));
+}
+
+function getMarkerByDbId(db_id) {
+	for (var i = 0; i < markers.length; i++)
+	{
+		if (markers[i].db_id === db_id)
+		{
+			return markers[i].markerObject;
+		}
+	}
+	return null;
+}
+
+// Return a facility by checking for the active record id
+function getFacilityByDbId(db_id) {
+	console.log("check " + db_id);
+	for (var i = 0; i < facilities.length; i++)
+	{
+		console.log(facilities[i])
+		if (facilities[i].id === db_id)
+		{
+			console.log("Returning index " + i);
+			return facilities[i];
+		}
+	}
+
+	return null;
 }
