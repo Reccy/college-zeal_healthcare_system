@@ -76,8 +76,11 @@ gem 'mailjet'
 # Figaro for secure config
 gem 'figaro'
 
-# Possessive inflection (E.g. Aaron's Rail project as opposed to Aaron Rail Project)
+# Possessive inflection (E.g. Aaron's Rail Project as opposed to Aaron Rail Project)
 gem "possessive"
 
 # Allows route helpers to be referenced in Javascript
 gem 'js-routes'
+
+# Allows client side validation to occur
+gem 'client_side_validations'

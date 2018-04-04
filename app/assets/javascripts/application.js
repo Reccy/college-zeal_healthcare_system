@@ -14,5 +14,6 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require rails.validations
 //= require js-routes
 //= require_tree ./application

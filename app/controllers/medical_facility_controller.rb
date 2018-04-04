@@ -19,11 +19,25 @@ class MedicalFacilityController < ApplicationController
 		@current_facility = MedicalFacility.find(params[:id])
 	end
 
+	def update
+		redirect_to "/403.html" and return false unless current_doctor.superuser?
+
+		@current_facility = MedicalFacility.find(params[:id])
+
+		if @current_facility.update_attributes(medical_facility_params)
+			redirect_to url_for(@current_facility)
+		else
+			redirect_to "/500.html" and return false
+		end
+	end
+
 	def show
 		@current_facility = MedicalFacility.find(params[:id])
 	end
 
 	def destroy
+		redirect_to "/403.html" and return false unless current_doctor.superuser?
+
 		@deleted_facility = MedicalFacility.find(params[:id])
 		@deleted_facility.delete
 		redirect_to medical_facility_index_path(last_deleted_facility: @deleted_facility.name)
