@@ -38,8 +38,6 @@ $.getScript('https://maps.google.com/maps/api/js?key=<%= Figaro.env.google_maps_
 // Adds a marker to the map and adds an OnClick listener to manage selected marker
 function addMarker(lat, lng, array_id, db_id) {
 
-	console.log("Adding marker " + lat + ", " + lng + ", id: " + array_id);
-
 	var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(lat, lng),
 		map: map,
@@ -118,16 +116,44 @@ function getMarkerByDbId(db_id) {
 
 // Return a facility by checking for the active record id
 function getFacilityByDbId(db_id) {
-	console.log("check " + db_id);
 	for (var i = 0; i < facilities.length; i++)
 	{
 		console.log(facilities[i])
 		if (facilities[i].id === db_id)
 		{
-			console.log("Returning index " + i);
 			return facilities[i];
 		}
 	}
 
 	return null;
+}
+
+//
+// Search Functionality
+//
+function facilitySearch()
+{
+	search_value = $('#medical-facility-searchbox').val().toLowerCase();
+	console.log("Search Value: [" + search_value + "]");
+
+	$('.medical-facility-card').each(function(i,obj) {
+		f_name = $(obj).find('.card-title').text().toLowerCase();
+		f_address = $(obj).find('.card-text').text().toLowerCase();
+
+		console.log("Name: " + f_name)
+		console.log("Address: " + f_address)
+
+		if (f_name.includes(search_value) || f_address.includes(search_value))
+		{
+			$(obj).removeClass('d-none');
+			markers[i].markerObject.setVisible(true);
+		}
+		else
+		{
+			$(obj).addClass('d-none');
+			markers[i].markerObject.setVisible(false);
+		}
+
+		console.log("======")
+	});
 }

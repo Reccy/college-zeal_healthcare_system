@@ -46,18 +46,16 @@
 		<!-- Dropdown -->
 		<div class="input-group mt-3 mb-3">
 			<div class="input-group-prepend">
-				<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hospitals</button>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">Hospitals</a>
-					<a class="dropdown-item" href="#">Clinics</a>
-				</div>
+				<span class="input-group-text" style="color: #ff000;">Search</span>
 			</div>
-			<input type="text" class="form-control" placeholder="Search" aria-label="Text input with dropdown button">
+			<input type="text" id="medical-facility-searchbox" class="form-control" placeholder="Name or Address..." onkeyup="facilitySearch()">
 		</div>
 
+		<ul class="list-group list-group-flush">
 		<% @medical_facilities.each do |facility| %>
 			<%= render partial: "facility_card", locals: {facility: facility} %>
 		<% end %>
+		</ul>
 	</div>
 
 	<!--########-->
