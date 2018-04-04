@@ -78,3 +78,6 @@ gem 'figaro'
 
 # Possessive inflection (E.g. Aaron's Rail project as opposed to Aaron Rail Project)
 gem "possessive"
+
+# Allows route helpers to be referenced in Javascript
+gem 'js-routes'

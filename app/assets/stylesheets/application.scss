@@ -37,6 +37,12 @@ a {
 	color: map-get($theme-colors, "superuser");
 }
 
+
+.alert-deleted {
+	@extend .alert-primary;
+	color: map-get($theme-colors, "superuser") !important;
+}
+
 /* Change the color of the hamburger (Source: https://stackoverflow.com/questions/42586729/bootstrap-4-change-hamburger-toggler-color) */
 $hamburger-color: map-get($theme-colors, "primary");
 

@@ -1,6 +1,13 @@
 <div class="row">
 	<div class="col">
 		<h1>Medical Facilities</h1>
+
+		<% unless @deleted_facility_name.nil? %>
+			<div class="alert alert-deleted alert-dismissable">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>Successfully Deleted Facility</strong> <%= @deleted_facility_name %>
+			</div>
+		<% end %>
 	</div>
 </div>
 
@@ -12,16 +19,18 @@
 		<div id="map-container" class="z-depth-1" style="height: 350px"></div>
 
 		<!-- Facility Details -->
-		<h3 class="mt-3">Somewhere Clinic</h3>
-		<p>12 Somewhere Street, Placeholder Ave.</p>
-		<strong>Description</strong><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique numquam, quae. Quia quos, laudantium, fugiat minima, et ipsa ducimus quo quibusdam iste tempore iure. Incidunt modi natus assumenda, distinctio aliquam.</p>
+		<h3 class="mt-3 facility-details-name">Please Select a Facility</h3>
+		<span class="medical-facility-selection">
+			<p class="facility-details-address">address_goes_here</p>
+			<strong>Description</strong><p class="facility-details-description">description_goes_here</p>
 
-		<button class="btn btn-primary my-2 my-sm-0" type="submit">More Details</button>
+			<a class="btn btn-primary medical-facility-btn-view" href="#">More Details</a>
+		</span>
 
 		<!-- Superuser Controls for currently selected Facility -->
 		<% if current_doctor.superuser? %>
-			<button class="btn btn-superuser my-2 my-sm-0" type="submit">Edit</button>
-			<button class="btn btn-superuser my-2 my-sm-0" type="submit">Delete</button>
+			<a class="btn btn-superuser medical-facility-selection medical-facility-btn-edit">Edit</a>
+			<button class="btn btn-superuser medical-facility-selection" data-toggle="modal" data-target="#deleteFacilityModal">Delete</button>
 		<% end %>
 	</div>
 	
@@ -31,7 +40,7 @@
 		
 		<!-- Superuser Controls for creating new Facility -->
 		<% if current_doctor.superuser? %>
-			<button class="btn btn-sm btn-block btn-superuser type="submit">Create New Facility</button>
+			<button class="btn btn-sm btn-block btn-superuser type="submit" data-toggle="modal" data-target="#createFacilityModal">Create New Facility</button>
 		<% end %>
 
 		<!-- Dropdown -->
@@ -51,4 +60,63 @@
 		<%= render partial: "facility_card", locals: {facility_name: "P Medical Center", facility_address: "P Lace, Holder Road"} %>
 		<%= render partial: "facility_card", locals: {facility_name: "P Medical Center", facility_address: "P Lace, Holder Road"} %>
 	</div>
+
+	<!--########-->
+	<!-- Modals -->
+	<!--########-->
+
+	<!-- Create Factory Modal -->
+	<div class="modal fade" id="createFacilityModal" tabindex="-1" role="dialog" aria-labelledby="createFacilityModal" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" >Create New Facility</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <%= bootstrap_form_with(model: MedicalFacility.new, url: medical_facility_index_path, local: true) do |f| %>
+				<%= f.text_field :name %>
+				<%= f.text_field :address %>
+				<%= f.text_field :description %>
+				<%= f.text_field :facility_type %>
+				<%= f.number_field :latitude, step:0.000001 %>
+				<%= f.number_field :longitude, step:0.000001 %>
+	      </div>
+	      <div class="modal-footer">
+	      	<%= f.submit "Save", :class => "btn btn-primary" %>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<% end %>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Delete Factory Modal -->
+	<div class="modal" id="deleteFacilityModal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Delete <strong class="facility-details-name"></strong></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>Really delete <strong class="facility-details-name">name_here</strong>?</p>
+	        <p>This action <strong>CAN NOT</strong> be reversed!</p>
+	      </div>
+	      <div class="modal-footer">
+	      	<a data-method="delete" class="btn btn-superuser medical-facility-btn-destroy">Confirm Deletion</a>
+	      	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel Delete</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </div>
+
+<script>
+	// Hack to get Ruby variables in Javascript file 'medical_facility_maps.js.erb'
+	medical_facilities = <%= @medical_facilities.to_json.html_safe %>;
+</script>

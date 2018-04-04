@@ -1,0 +1,44 @@
+<h1>New Medical Facility</h1>
+
+<% if @save_successful %>
+	<h2>Save Successful</h2>
+<% else %>
+	<h2>Save Failed</h2>
+	<% if @current_doctor.superuser? %>
+		<strong>Please check application logs.</strong>
+	<% else %>
+		<strong>Please notify the website administrator.</strong>
+	<% end %>
+<% end %>
+
+<strong>Name</strong>
+<p>
+	<%= @new_facility.name %>
+</p>
+
+<strong>Address</strong>
+<p>
+	<%= @new_facility.address %>
+</p>
+
+<strong>Description</strong>
+<p>
+	<%= @new_facility.description %>
+</p>
+
+<strong>Latitude</strong>
+<p>
+	<%= @new_facility.latitude %>
+</p>
+
+<strong>Longitude</strong>
+<p>
+	<%= @new_facility.longitude %>
+</p>
+
+<% if @save_successful %>
+	<a class="btn btn-primary" href="/facilities/<%= @new_facility.id %>">Show New Facility</a>
+	<a class="btn btn-secondary" href="/facilities/<%= @new_facility.id %>/edit">Edit</a>
+<% end %>
+
+<a class="btn btn-secondary" href="/facilities">Go Back</a>
