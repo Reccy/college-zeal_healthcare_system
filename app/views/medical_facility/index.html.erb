@@ -13,49 +13,55 @@
 
 <div class="row">
 
-	<div class="col-sm-12 col-md-8 mb-3">
+	<div class="col-md-12 col-lg-8 mb-3">
 		<!-- Map -->
-		<h2>Facility Map</h2>
 		<div id="map-container" class="z-depth-1" style="height: 350px"></div>
 
 		<!-- Facility Details -->
-		<h3 class="mt-3 facility-details-name">Please Select a Facility</h3>
-		<span class="medical-facility-selection">
-			<p class="facility-details-address">address_goes_here</p>
-			<strong>Description</strong><p class="facility-details-description">description_goes_here</p>
+		<div class="card border-flat-top border-no-top">
+			<div class="card-body">
+				<h3 class="facility-details-name">Please Select a Facility</h3>
+				<span class="medical-facility-selection">
+					<p class="facility-details-address">address_goes_here</p>
+					<strong>Description</strong><p class="facility-details-description">description_goes_here</p>
 
-			<a class="btn btn-primary medical-facility-btn-view" href="#">More Details</a>
-		</span>
+					<a class="btn btn-primary medical-facility-btn-view" href="#">More Details</a>
+				</span>
 
-		<!-- Superuser Controls for currently selected Facility -->
-		<% if current_doctor.superuser? %>
-			<a class="btn btn-superuser medical-facility-selection medical-facility-btn-edit">Edit</a>
-			<button class="btn btn-superuser medical-facility-selection" data-toggle="modal" data-target="#deleteFacilityModal">Delete</button>
-		<% end %>
+				<!-- Superuser Controls for currently selected Facility -->
+				<% if current_doctor.superuser? %>
+					<a class="btn btn-superuser medical-facility-selection medical-facility-btn-edit">Edit</a>
+					<button class="btn btn-superuser medical-facility-selection" data-toggle="modal" data-target="#deleteFacilityModal">Delete</button>
+				<% end %>
+			</div>
+		</div>
 	</div>
 	
 	<!-- Facility List -->
-	<div class="col-sm-12 col-md-4">
-		<h2>List of Facilities</h2>
-		
-		<!-- Superuser Controls for creating new Facility -->
-		<% if current_doctor.superuser? %>
-			<button class="btn btn-sm btn-block btn-superuser type="submit" data-toggle="modal" data-target="#createFacilityModal">Create New Facility</button>
-		<% end %>
+	<div class="col-md-12 col-lg-4">
+		<div class="card">
+			<div class="card-body">
 
-		<!-- Dropdown -->
-		<div class="input-group mt-3 mb-3">
-			<div class="input-group-prepend">
-				<span class="input-group-text" style="color: #ff000;">Search</span>
+				<!-- Superuser Controls for creating new Facility -->
+				<% if current_doctor.superuser? %>
+					<button class="btn btn-sm btn-block btn-superuser type="submit" data-toggle="modal" data-target="#createFacilityModal">Create New Facility</button>
+				<% end %>
+
+				<!-- Search -->
+				<div class="input-group mt-3 mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" style="color: #ff000;">Search</span>
+					</div>
+					<input type="text" id="medical-facility-searchbox" class="form-control" placeholder="Name or Address..." onkeyup="facilitySearch()">
+				</div>
+
+				<ul class="list-group list-group-flush">
+				<% @medical_facilities.each do |facility| %>
+					<%= render partial: "facility_card", locals: {facility: facility} %>
+				<% end %>
+				</ul>
 			</div>
-			<input type="text" id="medical-facility-searchbox" class="form-control" placeholder="Name or Address..." onkeyup="facilitySearch()">
 		</div>
-
-		<ul class="list-group list-group-flush">
-		<% @medical_facilities.each do |facility| %>
-			<%= render partial: "facility_card", locals: {facility: facility} %>
-		<% end %>
-		</ul>
 	</div>
 
 	<!--########-->

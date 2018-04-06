@@ -37,6 +37,46 @@ a {
 	color: map-get($theme-colors, "superuser");
 }
 
+.border-flat-top {
+	border-top-left-radius: 0px !important;
+	border-top-right-radius: 0px !important;
+}
+
+.border-flat-top-right {
+	border-top-right-radius: 0px !important;
+}
+
+.border-flat-top-left {
+	border-top-left-radius: 0px !important;
+}
+
+
+.border-no-top {
+	border-top: 0px !important;
+}
+
+.nav-pills > li:first-child {
+	border-top-right-radius: 0rem !important;
+}
+
+.nav-pills > li:last-child {
+	border-top-left-radius: 0rem !important;
+}
+
+.nav-pills > li {
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
+	background-color: $white;
+}
+
+.nav-pills > li > a {
+	border-bottom-left-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+}
+
+.nav-pills > li > a:active {
+	background-color: map-get($theme-colors, "primary") !important;
+}
 
 .alert-deleted {
 	@extend .alert-primary;
