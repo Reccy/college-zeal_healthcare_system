@@ -1,3 +1,20 @@
 <h1><%= @current_facility.name %></h1>
 <p>Page Under Construction...</p>
+
+<!-- Superuser Controls for currently selected Facility -->
+<% if current_doctor.superuser? %>
+	<%= link_to "Edit", edit_medical_facility_path, :class => "btn btn-superuser medical-facility-btn-edit" %>
+	<button class="btn btn-superuser" data-toggle="modal" data-target="#deleteFacilityModal">Delete</button>
+<% end %>
+
 <a class="btn btn-secondary" href="/facilities">Go Back</a>
+
+
+<!-- Modals -->
+<%= render partial: "delete_modal" %>
+
+<script>
+	// Hack to get Ruby variables in Javascript files
+	medical_facility = <%= @current_facility.to_json.html_safe %>;
+</script>
+<%= javascript_include_tag "medical_facility_show" %>

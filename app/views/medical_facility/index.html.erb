@@ -91,29 +91,12 @@
 	</div>
 
 	<!-- Delete Factory Modal -->
-	<div class="modal" id="deleteFacilityModal" tabindex="-1" role="dialog">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title">Delete <strong class="facility-details-name"></strong></h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        <p>Really delete <strong class="facility-details-name">name_here</strong>?</p>
-	        <p>This action <strong>CAN NOT</strong> be reversed!</p>
-	      </div>
-	      <div class="modal-footer">
-	      	<a data-method="delete" class="btn btn-superuser medical-facility-btn-destroy">Confirm Deletion</a>
-	      	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel Delete</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	<%= render partial: "delete_modal" %>
+
 </div>
 
 <script>
-	// Hack to get Ruby variables in Javascript file 'medical_facility_maps.js.erb'
+	// Hack to get Ruby variables in Javascript files
 	medical_facilities = <%= @medical_facilities.to_json.html_safe %>;
 </script>
+<%= javascript_include_tag "medical_facility_index" %>
