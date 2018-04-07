@@ -1,7 +1,13 @@
-<div class="card mb-2 medical-facility-card">
+<div class="card mb-2 department-card">
   <div class="card-body">
     <h5 class="card-title"><%= department.name %></h5>
-    <p class="card-text"><strong>Head: </strong>Dr P. Lace Holder</p>
-	<button class="btn btn-block btn-primary">View</button>
+
+    <% if department.department_head_id? %>
+    	<p class="card-text"><strong>Head: </strong><%= department.department_head.full_name %></p>
+	<% else %>
+		<p class="card-text"><strong>Head: </strong>None Assigned</p>
+	<% end %>
+
+	<a class="btn btn-block btn-primary" href="<%= medical_facility_department_path(@current_facility.id, department.id) %>">View</a>
   </div>
 </div>

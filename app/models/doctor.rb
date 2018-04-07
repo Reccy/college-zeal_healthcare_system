@@ -8,6 +8,7 @@ class Doctor < ApplicationRecord
   validates :last_name, presence: true
 
   has_many :owned_facilities, :class_name => "MedicalFacility", :foreign_key => "facility_head_id"
+  has_many :owned_departments, :class_name => "Department", :foreign_key => "department_head_id"
 
   def full_name
   	return first_name + " " + last_name
@@ -21,7 +22,14 @@ class Doctor < ApplicationRecord
 
   def can_view_facility?(medical_facility)
     # TODO: Add view check here
+    return true
     return can_edit_facility?(medical_facility)
+  end
+
+  def can_edit_department?(department)
+    return true if can_edit_facility?(department.medical_facility)
+    return true if department.department_head_id == id
+    return false
   end
 
 end

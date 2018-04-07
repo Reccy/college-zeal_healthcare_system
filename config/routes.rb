@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   	post :assign_facility_head
   	post :search_doctors
 
-    resources :department
+    resources :department do
+      get :remove_department_head
+      post :assign_department_head
+    end
   end
 end
