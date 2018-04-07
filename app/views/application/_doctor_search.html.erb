@@ -1,0 +1,106 @@
+<div class="modal fade" id="doctorSearchModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><%= modal_title %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Search Box -->
+        <div class="input-group mt-3 mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" style="color: #ff000;">Search</span>
+          </div>
+          <input type="text" id="doctor-searchbox" class="form-control" placeholder="Doctor Name or E-Mail..." onkeyup="doctorSearch()">
+        </div>
+
+        <!-- Results List -->
+        <ul class="doctor-search-list list-group list-group-flush">
+          <p>Please wait...</p>
+        </ul>
+
+      </div>
+      <div class="modal-footer">
+        <% if superuser_action %>
+          <a data-method="<%= primary_action_method %>" class="btn disabled btn-superuser doctor-search-primary-action"><%= primary_action_text %></a>
+        <% else %>
+          <a data-method="<%= primary_action_method %>" class="btn disabled btn-primary doctor-search-primary-action"><%= primary_action_text %></a>
+        <% end %>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Store HTML templates
+  doctor_search_card_template = "<%= escape_javascript render partial: 'doctor_search_card' %>"
+  doctor_search_primary_action_href_template = "<%= primary_action_path %>?doctor_id="
+
+  // Add on click listener to doctor results cards
+  function setupDoctorClickListeners() {
+    $(".doctor-search-card").click(function() {
+      doctor_search_id = $(this).find(".doctor-search-id").text()
+
+      $(".doctor-search-card").removeClass("selected-list-item");
+      $(this).addClass("selected-list-item");
+
+      $(".doctor-search-primary-action").removeClass("disabled");
+      $(".doctor-search-primary-action").attr("href", doctor_search_primary_action_href_template + doctor_search_id);
+      console.log(doctor_search_id)
+    });
+  }
+  
+  function getDoctorSearchQuery() {
+    query_text = $("#doctor-searchbox").val()
+    query = {"query" : query_text}
+    return query
+  }
+
+  // Perform ajax search for doctor when user types in name
+  function doctorSearch() {
+    $(".doctor-search-primary-action").addClass("disabled");
+
+    $.ajax ({
+      url: Routes.medical_facility_search_doctors_path(<%= @current_facility.id %>),
+      type: "post",
+      data: getDoctorSearchQuery(),
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      success: function(r) {
+        updateDoctorList(r.doctors)
+        setupDoctorClickListeners()
+      }
+    });
+  }
+
+  // Updates the view to contain the list of doctors
+  function updateDoctorList(doctors) {
+    console.log("Updating Doctors List!")
+    console.log(JSON.stringify(doctors))
+
+    list = $(".doctor-search-list")
+    list.html("")
+
+    for (var i = 0; i < doctors.length; i++)
+    {
+      doctor = doctors[i]
+
+      list.append(doctor_search_card_template)
+      doctor_record = $(".doctor-search-card").last()
+      doctor_record.find(".doctor-search-name").text(doctor.first_name + " " + doctor.last_name)
+      doctor_record.find(".doctor-search-email").text(doctor.email)
+      doctor_record.find(".doctor-search-id").text(doctor.id)
+    }
+  }
+
+  // Returns the selected doctor's ID
+  function get_selected_id() {
+    return $(".doctor-search-list").find(".selected-list-item").find(".doctor-search-id").text();
+  }
+
+  // Run doctor search at start to initialize the list
+  doctorSearch()
+</script>

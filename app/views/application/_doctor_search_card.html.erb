@@ -1,0 +1,11 @@
+<% doctor_name = "Dr. Null" if local_assigns[:doctor_name].nil? %>
+<% doctor_email = "null@nullemail.nil" if local_assigns[:doctor_email].nil? %>
+<% doctor_id = "0" if local_assigns[:doctor_id].nil? %>
+
+<div class="card mb-2 cursor-pointer doctor-search-card">
+  <div class="card-body">
+    <strong class="card-title doctor-search-name"><%= doctor_name %></strong>
+    <p class="card-text doctor-search-email"><%= doctor_email %></p>
+    <p class="display-none doctor-search-id"><%= doctor_id %></p>
+  </div>
+</div>

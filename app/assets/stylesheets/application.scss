@@ -83,6 +83,19 @@ a {
 	color: map-get($theme-colors, "superuser") !important;
 }
 
+.selected-list-item {
+	background-color: map-get($theme-colors, "primary") !important;
+	color: $white !important;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.display-none {
+	display: none;
+}
+
 /* Change the color of the hamburger (Source: https://stackoverflow.com/questions/42586729/bootstrap-4-change-hamburger-toggler-color) */
 $hamburger-color: map-get($theme-colors, "primary");
 

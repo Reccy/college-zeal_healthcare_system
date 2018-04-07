@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180404010054) do
+ActiveRecord::Schema.define(version: 20180406234600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,9 @@ ActiveRecord::Schema.define(version: 20180404010054) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "facility_type", default: "Clinic", null: false
+    t.bigint "facility_head_id"
+    t.index ["facility_head_id"], name: "index_medical_facilities_on_facility_head_id"
   end
 
+  add_foreign_key "medical_facilities", "doctors", column: "facility_head_id"
 end
