@@ -33,3 +33,29 @@ $('#facility_tabs a').on('click', function (e) {
 	e.preventDefault()
 	$(this).tab('show')
 })
+
+//
+// Search Functionality
+//
+function departmentSearch() {
+    search_value = $('#department-searchbox').val().toLowerCase();
+    console.log("Search Value: [" + search_value + "]");
+
+    $('.medical-facility-card').each(function(i, obj) {
+        f_name = $(obj).find('.card-title').text().toLowerCase();
+        f_address = $(obj).find('.card-text').text().toLowerCase();
+
+        console.log("Name: " + f_name)
+        console.log("Address: " + f_address)
+
+        if (f_name.includes(search_value) || f_address.includes(search_value)) {
+            $(obj).removeClass('d-none');
+            markers[i].markerObject.setVisible(true);
+        } else {
+            $(obj).addClass('d-none');
+            markers[i].markerObject.setVisible(false);
+        }
+
+        console.log("======")
+    });
+}

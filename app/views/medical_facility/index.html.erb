@@ -69,32 +69,7 @@
 	<!--########-->
 
 	<!-- Create Factory Modal -->
-	<div class="modal fade" id="createFacilityModal" tabindex="-1" role="dialog" aria-labelledby="createFacilityModal" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" >Create New Facility</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        <%= bootstrap_form_with(model: MedicalFacility.new, url: medical_facility_index_path, local: true) do |f| %>
-				<%= f.text_field :name %>
-				<%= f.text_field :address %>
-				<%= f.text_field :description %>
-				<%= f.text_field :facility_type %>
-				<%= f.number_field :latitude, step:0.000001 %>
-				<%= f.number_field :longitude, step:0.000001 %>
-	      </div>
-	      <div class="modal-footer">
-	      	<%= f.submit "Save", :class => "btn btn-primary" %>
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<% end %>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	<%= render partial: "create_facility_modal" %>
 
 	<!-- Delete Factory Modal -->
 	<%= render partial: "delete_modal" %>

@@ -11,5 +11,7 @@ Rails.application.routes.draw do
   	get :remove_facility_head
   	post :assign_facility_head
   	post :search_doctors
+
+    resources :department
   end
 end

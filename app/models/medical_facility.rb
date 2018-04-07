@@ -7,4 +7,5 @@ class MedicalFacility < ApplicationRecord
 	validates :facility_type, presence: true
 
 	belongs_to :facility_head, :class_name => 'Doctor', :foreign_key => 'facility_head_id', optional: true
+	has_many :departments
 end

@@ -18,14 +18,6 @@
 				<img src=<%= asset_path('logo_nosub.png') %> height="30" alt="">
 			</a>
 
-			<!-- Search Bar -->
-			<!-- <ul class="navbar-nav ml-auto">
-		    	<form class="form-inline">
-					<input class="form-control mr-sm-2" type="search" placeholder="Doctors, Clinics..." aria-label="Doctors, Clinics...">
-					<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-				</form>
-		    </ul> -->
-
 			<!-- Hamburger Icon -->
 			<button class="ml-auto navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
 				<span class="navbar-toggler-icon"></span>
@@ -54,6 +46,10 @@
   		
   		<!-- Padding for header -->
   		<div class="row pt-5 pb-4"></div>
+
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %>"><%= value %></div>
+		<% end %>
 
 	    <%= yield %>
 	    

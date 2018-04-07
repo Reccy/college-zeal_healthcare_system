@@ -20,9 +20,11 @@
 				<a class="btn btn-secondary" href="/facilities">All Facilities</a>
 
 				<!-- Superuser Controls for currently selected Facility -->
-				<% if current_doctor.superuser? %>
+				<% if current_doctor.can_edit_facility?(@current_facility) %>
 					<%= link_to "Edit", edit_medical_facility_path, :class => "btn btn-superuser" %>
-					<button class="btn btn-superuser" data-toggle="modal" data-target="#deleteFacilityModal">Delete</button>
+					<% if current_doctor.superuser? %>
+						<button class="btn btn-superuser" data-toggle="modal" data-target="#deleteFacilityModal">Delete</button>
+					<% end %>
 				<% end %>
 			</div>
 		</div>
@@ -77,7 +79,7 @@
 				<div class="card border-flat-top-left">
 					<div class="card-body">
 						<!-- Superuser/Admin Controls for creating new Department -->
-						<% if current_doctor.superuser? %>
+						<% if current_doctor.can_edit_facility?(@current_facility) %>
 							<button class="btn btn-sm btn-block btn-superuser type="submit" data-toggle="modal" data-target="#createDepartmentModal">Create New Department</button>
 						<% end %>
 
@@ -86,14 +88,14 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text" style="color: #ff000;">Search</span>
 							</div>
-							<input type="text" id="medical-facility-searchbox" class="form-control" placeholder="Department Name..." onkeyup="facilitySearch()">
+							<input type="text" id="department-searchbox" class="form-control" placeholder="Department Name or Head..." onkeyup="departmentSearch()">
 						</div>
 
 						<!-- Department List -->
 						<ul class="list-group list-group-flush">
-							<%= render partial: "department_card" %>
-							<%= render partial: "department_card" %>
-							<%= render partial: "department_card" %>
+							<% @departments.each do |department| %>
+								<%= render partial: "department_card", locals: {department: department} %>
+							<% end %>
 						</ul>
 					</div>
 				</div>
@@ -103,8 +105,8 @@
 			<div class="tab-pane" id="doctors" role="tabpanel" aria-labelledby="doctors-tab">
 				<div class="card border-flat-top-left">
 					<div class="card-body">
-						<!-- Superuser/Admin Controls for creating new Department -->
-						<% if current_doctor.superuser? %>
+						<!-- Superuser/Admin Controls for hiring new Doctor -->
+						<% if current_doctor.can_edit_facility?(@current_facility) %>
 							<button class="btn btn-sm btn-block btn-superuser type="submit" data-toggle="modal" data-target="#createDepartmentModal">Hire Doctor</button>
 						<% end %>
 
@@ -144,11 +146,13 @@
 <%= render partial: "doctor_search", locals: {superuser_action: true, modal_title: "Assign Head of #{@current_facility.name}", primary_action_text: "Assign", primary_action_path: medical_facility_assign_facility_head_path(@current_facility.id), primary_action_method: "post"} %>
 
 <!-- Modals -->
+<%= render partial: "create_department_modal" %>
 <%= render partial: "delete_modal" %>
 
 <script>
 	// Hack to get Ruby variables in Javascript files
 	medical_facility = <%= @current_facility.to_json.html_safe %>;
+	departments = <%= @departments.to_json.html_safe %>;
 	start_location_lat = <%= @current_facility.latitude.to_json.html_safe %>;
 	start_location_lng = <%= @current_facility.longitude.to_json.html_safe %>;
 </script>

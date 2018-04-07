@@ -14,15 +14,13 @@ class MedicalFacilityController < ApplicationController
 	end
 
 	def edit
-		redirect_to "/403.html" and return false unless current_doctor.superuser?
-
 		@current_facility = MedicalFacility.find(params[:id])
+		redirect_to "/403.html" and return false unless current_doctor.can_edit_facility?(@current_facility)
 	end
 
 	def update
-		redirect_to "/403.html" and return false unless current_doctor.superuser?
-
 		@current_facility = MedicalFacility.find(params[:id])
+		redirect_to "/403.html" and return false unless current_doctor.can_edit_facility?(@current_facility)
 
 		if @current_facility.update_attributes(medical_facility_params)
 			redirect_to url_for(@current_facility)
@@ -33,6 +31,9 @@ class MedicalFacilityController < ApplicationController
 
 	def show
 		@current_facility = MedicalFacility.find(params[:id])
+		redirect_to "/403.html" and return false unless current_doctor.can_view_facility?(@current_facility)
+
+		@departments = @current_facility.departments
 	end
 
 	def destroy
@@ -45,12 +46,13 @@ class MedicalFacilityController < ApplicationController
 
 	# Removes the head of the facility
 	def remove_facility_head
-		redirect_to "/403.html" and return false unless current_doctor.superuser?
-
 		@current_facility = MedicalFacility.find(params[:medical_facility_id])
+		redirect_to "/403.html" and return false unless current_doctor.can_edit_facility?(@current_facility)
+
 		@current_facility.update_attribute(:facility_head, nil)
 		@current_facility.save!
 
+		flash[:success] = 'Successfully removed facility head'
 		redirect_back(fallback_location: :root_path)
 	end
 
@@ -65,6 +67,7 @@ class MedicalFacilityController < ApplicationController
 		@current_facility.update_attribute(:facility_head, head)
 		@current_facility.save!
 
+		flash[:success] = 'Successfully assigned new facility head'
 		redirect_back(fallback_location: :root_path)
 	end
 
@@ -72,11 +75,20 @@ class MedicalFacilityController < ApplicationController
 	# Used for AJAX calls
 	def search_doctors
 		@current_facility = MedicalFacility.find(params[:medical_facility_id])
-		redirect_to "/403.html" and return false unless current_doctor.can_edit_facility?(@current_facility)
+		redirect_to "/403.html" and return false unless current_doctor.can_view_facility?(@current_facility)
 		
 		doctors = Doctor.where("first_name ILIKE :query OR last_name ILIKE :query OR email ILIKE :query", query: "%#{params[:query]}%").order(:first_name)
 
 		render json: {:doctors => doctors}
+	end
+
+	def get_departments
+		@current_facility = MedicalFacility.find(params[:medical_facility_id])
+		redirect_to "/403.html" and return false unless current_doctor.can_view_facility?(@current_facility)
+
+		departments = @current_facility.departments.all
+
+		render json: {:departments => departments}
 	end
 
 	private

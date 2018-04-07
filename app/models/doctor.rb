@@ -19,4 +19,9 @@ class Doctor < ApplicationRecord
     return false
   end
 
+  def can_view_facility?(medical_facility)
+    # TODO: Add view check here
+    return can_edit_facility?(medical_facility)
+  end
+
 end
