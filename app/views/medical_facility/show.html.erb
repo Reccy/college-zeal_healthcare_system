@@ -47,7 +47,7 @@
 					<%= link_to "Show", edit_medical_facility_path, :class => "btn btn-primary" %>
 				<% end %>
 
-				<% if current_doctor.superuser? %>
+				<% if current_doctor.can_edit_facility?(@current_facility) %>
 					<% if @current_facility.facility_head_id? %>
 						<button class="btn btn-superuser type="submit" data-toggle="modal" data-target="#doctorSearchModal">Reassign</button>
 						<%= link_to "Remove", medical_facility_remove_facility_head_path(@current_facility.id), :class => "btn btn-superuser" %>

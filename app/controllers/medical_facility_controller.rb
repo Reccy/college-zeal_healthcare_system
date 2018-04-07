@@ -56,7 +56,8 @@ class MedicalFacilityController < ApplicationController
 
 	# Assigns the head of the facility
 	def assign_facility_head
-		redirect_to "/403.html" and return false unless current_doctor.superuser?
+		@current_facility = MedicalFacility.find(params[:medical_facility_id])
+		redirect_to "/403.html" and return false unless current_doctor.can_edit_facility?(@current_facility)
 		redirect_to "/422.html" and return false unless params[:doctor_id] != nil
 
 		@current_facility = MedicalFacility.find(params[:medical_facility_id])
@@ -70,7 +71,9 @@ class MedicalFacilityController < ApplicationController
 	# POST search for Doctors by name or email.
 	# Used for AJAX calls
 	def search_doctors
-		redirect_to "/403.html" and return false unless current_doctor.superuser?
+		@current_facility = MedicalFacility.find(params[:medical_facility_id])
+		redirect_to "/403.html" and return false unless current_doctor.can_edit_facility?(@current_facility)
+		
 		doctors = Doctor.where("first_name ILIKE :query OR last_name ILIKE :query OR email ILIKE :query", query: "%#{params[:query]}%").order(:first_name)
 
 		render json: {:doctors => doctors}

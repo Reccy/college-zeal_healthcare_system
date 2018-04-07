@@ -12,4 +12,11 @@ class Doctor < ApplicationRecord
   def full_name
   	return first_name + " " + last_name
   end
+
+  def can_edit_facility?(medical_facility)
+    return true if superuser?
+    return true if medical_facility.facility_head_id == id
+    return false
+  end
+
 end
