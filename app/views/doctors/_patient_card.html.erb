@@ -1,0 +1,16 @@
+<div class="card mb-2 patient-card">
+  <div class="card-body">
+    <h5 class="card-title"><%= patient.full_name %></h5>
+
+    <% if current_doctor.patients.include?(patient) %>
+		<div class="btn-group justify-content-between btn-block" role="group">
+		    <a class="btn btn-block btn-primary" href="<%= patient_path(patient.id) %>">Show</a>
+		    <button class="btn btn-superuser" type="submit" data-toggle="modal" data-target="#reassignDoctorModal-<%= patient.id %>">Reassign</button>
+	    </div>
+    <% else %>
+		  <a class="btn btn-block btn-primary" href="<%= patient_path(patient.id) %>">Show</a>
+  	<% end %>
+  </div>
+</div>
+
+<%= render partial: "reassign_doctor_modal", locals: {patient: patient} %>

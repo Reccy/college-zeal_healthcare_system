@@ -13,25 +13,15 @@
 		<div class="card">
 			<div class="card-body">
 				<h5>Referrals</h5>
-				<!-- Superuser Controls for creating new Facility -->
-				<% if current_doctor.superuser? %>
-					<button class="btn btn-sm btn-block btn-superuser mb-3" type="submit" data-toggle="modal" data-target="#createFacilityModal">Create New Facility</button>
-				<% end %>
-
-				<!-- Search -->
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" style="color: #ff000;">Search</span>
-					</div>
-					<input type="text" id="medical-facility-searchbox" class="form-control" placeholder="Name or Address..." onkeyup="facilitySearch()">
-				</div>
 
 				<ul class="list-group list-group-flush">
+					<strong>No Referrals</strong>
 					<!-- REFERRALS GO HERE -->
 				</ul>
+
+				<a class="btn btn-secondary" href="<%= medical_facility_path(@current_facility.id) %>">Back to <%= @current_facility.name %></a>
 			</div>
 		</div>
-
 	</div>
 
 	<div class="col-md-12 col-lg-4 mb-3">
@@ -92,12 +82,6 @@
 
 	</div>
 
-</div>
-
-<div class="row">
-	<div class="col col-12">
-		<a class="btn btn-secondary" href="<%= medical_facility_path(@current_facility.id) %>">Back to <%= @current_facility.name %></a>
-	</div>
 </div>
 
 <%= render partial: "doctor_search", locals: {superuser_action: true, modal_title: "Assign Head of #{@current_department.name}", primary_action_text: "Assign", primary_action_path: medical_facility_department_assign_department_head_path(@current_facility.id, @current_department.id), primary_action_method: "post"} %>

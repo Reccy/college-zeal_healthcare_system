@@ -80,7 +80,7 @@
 					<div class="card-body">
 						<!-- Superuser/Admin Controls for creating new Department -->
 						<% if current_doctor.can_edit_facility?(@current_facility) %>
-							<button class="btn btn-sm btn-block btn-superuser type="submit" data-toggle="modal" data-target="#createDepartmentModal">Create New Department</button>
+							<button class="btn btn-sm btn-block btn-superuser" type="submit" data-toggle="modal" data-target="#createDepartmentModal">Create New Department</button>
 						<% end %>
 
 						<!-- Department Search -->

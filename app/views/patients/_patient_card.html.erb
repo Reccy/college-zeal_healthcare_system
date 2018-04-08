@@ -1,0 +1,8 @@
+<div class="card mb-2 patient-card">
+  <div class="card-body">
+    <h5 class="card-title"><%= patient.full_name %></h5>
+    <p class="card-text"><strong>Doctor:</strong> <%= patient.doctor.full_name %></p>
+
+	<a class="btn btn-primary" href="<%= patient_path(patient.id) %>">Show</a>
+  </div>
+</div>

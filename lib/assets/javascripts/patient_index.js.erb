@@ -1,0 +1,17 @@
+console.log("Started Patient Index script.")
+
+// Function for searching for patients
+function patientSearch() {
+	search_value = $('#patient-searchbox').val().toLowerCase();
+    
+    $('.patient-card').each(function(i, obj) {
+        f_name = $(obj).find('.card-title').text().toLowerCase();
+        f_doctor = $(obj).find('.card-body').text().toLowerCase();
+
+        if (f_name.includes(search_value) || f_doctor.includes(search_value)) {
+            $(obj).removeClass('d-none');
+        } else {
+            $(obj).addClass('d-none');
+        }
+    });
+}

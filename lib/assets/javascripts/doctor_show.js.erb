@@ -1,0 +1,24 @@
+console.log("Started Doctor Show script.")
+
+//
+// Enable Bootstrap Tabs
+//
+$('#doctor_tabs a').on('click', function (e) {
+	e.preventDefault()
+	$(this).tab('show')
+})
+
+// Function for searching for patients
+function patientSearch() {
+	search_value = $('#patient-searchbox').val().toLowerCase();
+    
+    $('.patient-card').each(function(i, obj) {
+        f_name = $(obj).find('.card-title').text().toLowerCase();
+
+        if (f_name.includes(search_value)) {
+            $(obj).removeClass('d-none');
+        } else {
+            $(obj).addClass('d-none');
+        }
+    });
+}

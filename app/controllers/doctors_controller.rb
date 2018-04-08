@@ -2,7 +2,7 @@ class DoctorsController < ApplicationController
 	before_action :authenticate_doctor!
 
 	def show
-		@current_doctor = Doctor.find(params[:id])
+		@this_doctor = Doctor.find(params[:id])
 	end
 
 	def fire

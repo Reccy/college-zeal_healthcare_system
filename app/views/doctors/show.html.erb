@@ -1,1 +1,82 @@
-<h1><%= @current_doctor.full_name %></h1>
+<div class="row">
+	<div class="col">
+		<h1><%= @this_doctor.full_name %></h1>
+	</div>
+</div>
+
+<div class="row">
+
+	<!-- Doctor Information -->
+	<div class="col-md-12 col-lg-8 mb-3">
+		roles and details and stuff
+	</div>
+
+	<!-- Patients and Appointments -->
+	<div class="col-md-12 col-lg-4">
+
+		<!-- Tab Header -->
+		<ul id="doctor_tabs" class="nav nav-pills mt-3" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active" id="appointments-tab" data-toggle="tab" role="tab" aria-controls="appointments" href="#appointments" aria-selected="true">Appointments</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="patients-tab" data-toggle="tab" role="tab"  aria-controls="patients" href="#patients" aria-selected="false">Patients</a>
+		  </li>
+		</ul>
+
+		<!-- Tab Content -->
+		<div class="tab-content">
+
+			<!-- Appointments -->
+			<div class="tab-pane active" id="appointments" role="tabpanel" aria-labelledby="appointments-tab">
+				<div class="card border-flat-top-left">
+					<div class="card-body">
+
+						<!-- Appointment Search -->
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" style="color: #ff000;">Search</span>
+							</div>
+							<input type="text" id="department-searchbox" class="form-control" placeholder="Department Name or Head..." onkeyup="departmentSearch()">
+						</div>
+
+						<!-- Appointment List -->
+						<ul class="list-group list-group-flush">
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- Patients -->
+			<div class="tab-pane" id="patients" role="tabpanel" aria-labelledby="patients-tab">
+				<div class="card border-flat-top-left">
+					<div class="card-body">
+						<!-- Doctor Controls for creating new patient -->
+						<% if current_doctor == @this_doctor %>
+							<button class="btn btn-sm btn-block btn-superuser mb-3" type="submit" data-toggle="modal" data-target="#createPatientModal">New Patient</button>
+						<% end %>
+
+						<!-- Patient Search -->
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" style="color: #ff000;">Search</span>
+							</div>
+							<input type="text" id="patient-searchbox" class="form-control" placeholder="Name or Department..." onkeyup="patientSearch()">
+						</div>
+
+						<!-- Patient List -->
+						<ul class="list-group list-group-flush">
+							<% @this_doctor.patients.each do |patient| %>
+								<%= render partial:"patient_card", locals: {patient: patient} %>
+							<% end %>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= render partial: "create_patient_modal" %>
+
+<%= javascript_include_tag "doctor_show" %>
