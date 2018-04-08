@@ -1,0 +1,16 @@
+console.log("Started Department Show script.")
+
+// Function for searching for doctors to hire
+function doctorHireSearch() {
+	search_value = $('#doctor-hire-searchbox').val().toLowerCase();
+    
+    $('.doctor-card').each(function(i, obj) {
+        f_name = $(obj).find('.card-title').text().toLowerCase();
+
+        if (f_name.includes(search_value)) {
+            $(obj).removeClass('d-none');
+        } else {
+            $(obj).addClass('d-none');
+        }
+    });
+}

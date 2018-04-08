@@ -9,11 +9,34 @@
 
 	<div class="col-md-12 col-lg-8 mb-3">
 
+		<!-- Referrals List -->
+		<div class="card">
+			<div class="card-body">
+				<h5>Referrals</h5>
+				<!-- Superuser Controls for creating new Facility -->
+				<% if current_doctor.superuser? %>
+					<button class="btn btn-sm btn-block btn-superuser mb-3" type="submit" data-toggle="modal" data-target="#createFacilityModal">Create New Facility</button>
+				<% end %>
+
+				<!-- Search -->
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" style="color: #ff000;">Search</span>
+					</div>
+					<input type="text" id="medical-facility-searchbox" class="form-control" placeholder="Name or Address..." onkeyup="facilitySearch()">
+				</div>
+
+				<ul class="list-group list-group-flush">
+					<!-- REFERRALS GO HERE -->
+				</ul>
+			</div>
+		</div>
+
 	</div>
 
-	<div class="col-md-12 col-lg-4">
+	<div class="col-md-12 col-lg-4 mb-3">
 
-		<!-- Hospital Head -->
+		<!-- Department Head -->
 		<div class="card">
 			<div class="card-body">
 				<h5>Head of <%= @current_department.name %></h5>
@@ -27,7 +50,7 @@
 
 				<div class="mt-3 mb=3">
 				<% if @current_department.department_head_id %>
-					<%= link_to "Show", edit_medical_facility_path, :class => "btn btn-primary" %>
+					<%= link_to "Show", doctor_path(@current_department.department_head_id), :class => "btn btn-primary" %>
 				<% end %>
 
 				<% if current_doctor.can_edit_department?(@current_department) %>
@@ -42,8 +65,43 @@
 			</div>
 		</div>
 
+		<!-- Doctor List -->
+		<div class="card mt-3">
+			<div class="card-body">
+				<h5>Doctors</h5
+				<!-- Superuser Controls for hiring new Doctor -->
+				<% if current_doctor.superuser? %>
+					<button class="btn btn-sm btn-block btn-superuser mb-3" type="submit" data-toggle="modal" data-target="#hireDoctorModal">Hire Doctor</button>
+				<% end %>
 
+				<!-- Search -->
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" style="color: #ff000;">Search</span>
+					</div>
+					<input type="text" id="doctor-hire-searchbox" class="form-control" placeholder="Name or Address..." onkeyup="doctorHireSearch()">
+				</div>
+
+				<ul class="list-group list-group-flush">
+					<% @current_department.employees.all.each do |doctor| %>
+						<%= render partial: "doctor_card", locals: {doctor: doctor} %>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col col-12">
+		<a class="btn btn-secondary" href="<%= medical_facility_path(@current_facility.id) %>">Back to <%= @current_facility.name %></a>
 	</div>
 </div>
 
 <%= render partial: "doctor_search", locals: {superuser_action: true, modal_title: "Assign Head of #{@current_department.name}", primary_action_text: "Assign", primary_action_path: medical_facility_department_assign_department_head_path(@current_facility.id, @current_department.id), primary_action_method: "post"} %>
+
+<%= render partial: "doctor_hire_modal", locals: {department: @current_department} %>
+
+<%= javascript_include_tag "department_show" %>

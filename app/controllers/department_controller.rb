@@ -1,4 +1,6 @@
 class DepartmentController < ApplicationController
+	before_action :authenticate_doctor!
+	
 	def create
 		@current_facility = MedicalFacility.find(params[:medical_facility_id])
 		begin
@@ -15,6 +17,18 @@ class DepartmentController < ApplicationController
 	def show
 		@current_facility = MedicalFacility.find(params[:medical_facility_id])
 		@current_department = @current_facility.departments.find(params[:id])
+	end
+
+	def hire
+		@current_facility = MedicalFacility.find(params[:medical_facility_id])
+		@current_department = @current_facility.departments.find(params[:department_id])
+		@hired_doctor = Doctor.find(params[:doctor][:doctor_id])
+		puts("Hiring #{@hired_doctor.first_name}")
+
+		@current_department.employees << @hired_doctor
+
+		flash[:success] = "Successfully hired #{@hired_doctor.full_name}!"
+		redirect_back(fallback_location: :root_path)
 	end
 
 	# Removes the head of the department

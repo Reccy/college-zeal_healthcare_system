@@ -1,0 +1,15 @@
+<div class="card mb-2 doctor-card">
+  <div class="card-body">
+    <h5 class="card-title"><%= doctor.full_name %></h5>
+
+	<% if current_doctor.can_edit_department?(@current_department) %>
+		<div class="btn-group justify-content-between btn-block" role="group">
+		    <a class="btn btn-block btn-primary" href="<%= doctor_path(doctor.id) %>">Show</a>
+		    <a class="btn btn-superuser" href="<%= medical_facility_department_doctor_fire_path(@current_facility.id, @current_department.id, doctor.id) %>">Fire Doctor</a>
+	    </div>
+    <% else %>
+		<a class="btn btn-block btn-primary" href="<%= doctor_path(doctor.id) %>">Show</a>
+  	<% end %>
+
+  </div>
+</div>

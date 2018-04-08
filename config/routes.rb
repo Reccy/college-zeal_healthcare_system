@@ -15,6 +15,14 @@ Rails.application.routes.draw do
     resources :department do
       get :remove_department_head
       post :assign_department_head
+      post :hire
+
+      resources :doctors, only: [] do
+        get :fire
+      end
     end
   end
+
+  # Doctor routes
+  resources :doctors, only: [:show]
 end

@@ -46,7 +46,7 @@
 
 				<div class="mt-3 mb=3">
 				<% if @current_facility.facility_head_id %>
-					<%= link_to "Show", edit_medical_facility_path, :class => "btn btn-primary" %>
+					<%= link_to "Show", doctor_path(@current_facility.facility_head_id), :class => "btn btn-primary" %>
 				<% end %>
 
 				<% if current_doctor.can_edit_facility?(@current_facility) %>
@@ -105,13 +105,9 @@
 			<div class="tab-pane" id="doctors" role="tabpanel" aria-labelledby="doctors-tab">
 				<div class="card border-flat-top-left">
 					<div class="card-body">
-						<!-- Superuser/Admin Controls for hiring new Doctor -->
-						<% if current_doctor.can_edit_facility?(@current_facility) %>
-							<button class="btn btn-sm btn-block btn-superuser type="submit" data-toggle="modal" data-target="#createDepartmentModal">Hire Doctor</button>
-						<% end %>
 
 						<!-- Doctor Search -->
-						<div class="input-group mt-3 mb-3">
+						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text" style="color: #ff000;">Search</span>
 							</div>
@@ -120,21 +116,9 @@
 
 						<!-- Doctor List -->
 						<ul class="list-group list-group-flush">
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
-							<%= render partial: "doctor_card" %>
+							<% @current_facility.employees.all.each do |doctor| %>
+								<%= render partial: "doctor_card", locals: {doctor: doctor} %>
+							<% end %>
 						</ul>
 					</div>
 				</div>

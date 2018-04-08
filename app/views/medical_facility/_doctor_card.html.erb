@@ -1,11 +1,8 @@
 <div class="card mb-2 medical-facility-card">
   <div class="card-body">
-    <h5 class="card-title">Doctor Name</h5>
-    <p class="card-text">Doctor Text</p>
+    <h5 class="card-title"><%= doctor.full_name %></h5>
+    <p class="card-text"><%= doctor.workplace.name %></p>
 
-    <div class="btn-group justify-content-between btn-block" role="group">
-	    <button class="btn btn-block btn-secondary">View</button>
-	    <a class="btn btn-primary">More Details</a>
-    </div>
+	<a class="btn btn-block btn-primary" href="<%= doctor_path(doctor.id) %>">Show</a>
   </div>
 </div>

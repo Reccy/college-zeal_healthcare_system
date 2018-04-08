@@ -11,4 +11,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w( *.mp4 *.png *.jpg landing_page.js landing_page.css medical_facility_index.js medical_facility_show.js )
+Rails.application.config.assets.precompile += %w( *.mp4 *.png *.jpg landing_page.js landing_page.css medical_facility_index.js medical_facility_show.js department_show.js )

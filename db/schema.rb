@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180407162504) do
+ActiveRecord::Schema.define(version: 20180407173759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,8 +41,10 @@ ActiveRecord::Schema.define(version: 20180407162504) do
     t.string "first_name"
     t.string "last_name"
     t.boolean "superuser", default: false
+    t.bigint "workplace_id"
     t.index ["email"], name: "index_doctors_on_email", unique: true
     t.index ["reset_password_token"], name: "index_doctors_on_reset_password_token", unique: true
+    t.index ["workplace_id"], name: "index_doctors_on_workplace_id"
   end
 
   create_table "medical_facilities", force: :cascade do |t|
@@ -60,5 +62,6 @@ ActiveRecord::Schema.define(version: 20180407162504) do
 
   add_foreign_key "departments", "doctors", column: "department_head_id"
   add_foreign_key "departments", "medical_facilities"
+  add_foreign_key "doctors", "departments", column: "workplace_id"
   add_foreign_key "medical_facilities", "doctors", column: "facility_head_id"
 end
