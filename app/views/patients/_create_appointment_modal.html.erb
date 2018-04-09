@@ -1,16 +1,16 @@
-<div class="modal fade" id="createNewRecordModal" tabindex="-1" role="dialog" aria-labelledby="createNewRecordModal" aria-hidden="true">
+<div class="modal fade" id="createAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="createAppointmentModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" >Create New Record</h5>
+        <h5 class="modal-title" >Create Appointment</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <%= bootstrap_form_with(model: PatientRecord.new, url: patient_patient_records_path(@current_patient.id), local: true) do |f| %>
-    			<%= f.text_field :title %>
-          <%= f.text_field :content %>
+        <%= bootstrap_form_with(model: Appointment.new, url:patient_create_appointment_path(@current_patient.id), local: true) do |f| %>
+    			<%= f.text_field :reason %>
+          <%= f.datetime_field :scheduled %>
       </div>
       <div class="modal-footer">
       	<%= f.submit "Add Record", :class => "btn btn-superuser" %>

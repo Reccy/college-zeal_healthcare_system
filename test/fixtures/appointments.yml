@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  doctor: one
+  patient: one
+  reason: MyString
+  scheduled: 2018-04-09 01:53:07
+
+two:
+  doctor: two
+  patient: two
+  reason: MyString
+  scheduled: 2018-04-09 01:53:07

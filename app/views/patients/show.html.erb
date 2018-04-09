@@ -20,6 +20,23 @@
 			</div>
 		</div>
 
+		<!-- Scheduled Appointments -->
+		<div class="card mt-3">
+			<div class="card-body">
+				<h5>Appointments</h5>
+
+				<% if current_doctor == @current_patient.doctor %>
+				<button class="btn btn-block btn-superuser medical-facility-selection mb-3" data-toggle="modal" data-target="#createAppointmentModal">Create Appointment</button>
+				<% end %>
+
+				<ul id="patient_records" class="list-group list-group-flush">
+					<% @current_patient.appointments.order('appointments.created_at DESC').each do |appointment| %>
+						<%= render partial: "appointment_card", locals: {appointment: appointment} %>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+
 	</div>
 
 	<div class="col-md-12 col-lg-8">
@@ -61,5 +78,6 @@
 </div>
 
 <%= render partial:"create_new_record_modal" %>
+<%= render partial:"create_appointment_modal" %>
 
 <%= javascript_include_tag "patient_show" %>

@@ -1,0 +1,16 @@
+<div class="card mb-2 appointment-card">
+  <div class="card-body">
+    <h5 class="card-title"><%= appointment.doctor.full_name %></h5>
+    <p class="card-text">
+
+		<strong>Reason: </strong> <%= appointment.reason %>
+		<br>
+
+    	<% if appointment.scheduled > DateTime.now %>
+    		<sub>Starts <%= time_ago_in_words(appointment.scheduled) %> from now (<%= appointment.scheduled.strftime("%Y-%m-%d at %H:%M:%S") %>)</sub>
+    	<% else %>
+    		<sub>Began <%= time_ago_in_words(appointment.scheduled) %> ago (<%= appointment.scheduled.strftime("%Y-%m-%d at %H:%M:%S") %>)</sub>
+    	<% end %>
+    </p>
+  </div>
+</div>
