@@ -31,17 +31,19 @@
 			<div class="tab-pane active" id="appointments" role="tabpanel" aria-labelledby="appointments-tab">
 				<div class="card border-flat-top-left">
 					<div class="card-body">
-
 						<!-- Appointment Search -->
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text" style="color: #ff000;">Search</span>
 							</div>
-							<input type="text" id="department-searchbox" class="form-control" placeholder="Department Name or Head..." onkeyup="departmentSearch()">
+							<input type="text" id="department-searchbox" class="form-control" placeholder="Patient Name, Time or Reason..." onkeyup="appointmentSearch()">
 						</div>
 
 						<!-- Appointment List -->
 						<ul class="list-group list-group-flush">
+							<% @this_doctor.appointments.order('appointments.scheduled ASC').each do |appointment| %>
+								<%= render partial:"appointment_card", locals: {appointment: appointment} %>
+							<% end %>
 						</ul>
 					</div>
 				</div>
@@ -61,7 +63,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text" style="color: #ff000;">Search</span>
 							</div>
-							<input type="text" id="patient-searchbox" class="form-control" placeholder="Name or Department..." onkeyup="patientSearch()">
+							<input type="text" id="patient-searchbox" class="form-control" placeholder="Patient Name..." onkeyup="patientSearch()">
 						</div>
 
 						<!-- Patient List -->

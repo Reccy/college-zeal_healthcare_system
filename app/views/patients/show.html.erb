@@ -30,7 +30,7 @@
 				<% end %>
 
 				<ul id="patient_records" class="list-group list-group-flush">
-					<% @current_patient.appointments.order('appointments.created_at DESC').each do |appointment| %>
+					<% @current_patient.appointments.order('appointments.scheduled ASC').each do |appointment| %>
 						<%= render partial: "appointment_card", locals: {appointment: appointment} %>
 					<% end %>
 				</ul>

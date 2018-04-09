@@ -34,5 +34,9 @@ Rails.application.routes.draw do
     resources :patient_records, only: [:create] do
       patch :archive_record
     end
+
+    resources :appointments, only: [] do
+      get :cancel_appointment
+    end
   end
 end

@@ -1,6 +1,6 @@
 <div class="card mb-2 appointment-card">
   <div class="card-body">
-    <h5 class="card-title"><%= appointment.doctor.full_name %></h5>
+    <h5 class="card-title"><%= appointment.patient.full_name %></h5>
     <p class="card-text">
 
 		<strong>Reason: </strong> <%= appointment.reason %>
@@ -17,11 +17,12 @@
 
     <% if appointment.doctor == current_doctor %>
         <div class="btn-group justify-content-between btn-block" role="group">
-            <a class="btn btn-block btn-primary" href="<%= doctor_path(appointment.doctor.id) %>">View Doctor</a>
+            <a class="btn btn-block btn-primary" href="<%= patient_path(appointment.patient.id) %>">View Patient</a>
             <a class="btn  btn-superuser" href="<%= patient_appointment_cancel_appointment_path(appointment.patient.id, appointment.id) %>"><%= appointment_text %></a>
         </div>
     <% else %>
-          <a class="btn btn-block btn-primary" href="<%= doctor_path(appointment.doctor.id) %>">View Doctor</a>
+          <a class="btn btn-block btn-primary" href="<%= patient_path(appointment.patient.id) %>">View Patient</a>
     <% end %>
+
   </div>
 </div>
