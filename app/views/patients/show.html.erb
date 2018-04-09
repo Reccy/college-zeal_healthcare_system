@@ -1,2 +1,65 @@
 <h1><%= @current_patient.full_name %></h1>
-<h5><strong>Doctor: </strong><%= @current_patient.doctor.full_name %></h5>
+
+<div class="row">
+	<div class="col-md-12 col-lg-4">
+
+		<!-- Patient Information -->
+		<div class="card">
+			<div class="card-body">
+				<h5>Patient Information</h5>
+				<p>
+					<strong>Patient Name: </strong><%= @current_patient.full_name %>
+					<br>
+					<strong>Assigned Doctor: </strong><%= @current_patient.doctor.full_name %>
+				</p>
+
+				<% if current_doctor == @current_patient.doctor %>
+				<button class="btn btn-block btn-superuser medical-facility-selection" data-toggle="modal" data-target="#createNewRecordModal">Add New Record</button>
+				<% end %>
+				<button id="record-toggle-button" class="btn btn-block btn-secondary medical-facility-selection" onclick="toggleRecordView()">View Record History</button>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-12 col-lg-8">
+
+		<!-- Patient Records (Normal) -->
+		<div class="card" id="patient-records">
+			<div class="card-body">
+				<h5>Patient Record</h5>
+
+				<ul id="patient_records" class="list-group list-group-flush">
+					<% @current_patient.patient_records.order('patient_records.created_at DESC').each do |patient_record| %>
+						<% if !patient_record.is_archived %>
+							<%= render partial: "patient_record_card", locals: {patient_record: patient_record} %>
+						<% end %>
+					<% end %>
+				</ul>
+
+			</div>
+		</div>
+
+
+		<!-- Patient Records (Archived) -->
+		<div class="card d-none" id="archived-patient-records">
+			<div class="card-body">
+				<h5>Archived Patient Record</h5>
+
+				<ul id="patient_records" class="list-group list-group-flush">
+					<% @current_patient.patient_records.order('patient_records.created_at DESC').each do |patient_record| %>
+						<% if patient_record.is_archived %>
+							<%= render partial: "archived_patient_record_card", locals: {patient_record: patient_record} %>
+						<% end %>
+					<% end %>
+				</ul>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<%= render partial:"create_new_record_modal" %>
+
+<%= javascript_include_tag "patient_show" %>

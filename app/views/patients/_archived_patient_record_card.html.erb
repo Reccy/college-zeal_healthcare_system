@@ -1,0 +1,8 @@
+<div class="card mb-2 patient-record-card">
+  <div class="card-body">
+    <h5 class="card-title"><%= patient_record.title %></h5>
+    <p class="card-text">
+    	<%= patient_record.content %></p>
+    <p class="mb-0 mt-0"><sub><strong>Record Author:</strong> <%= patient_record.doctor.full_name %> --- <strong>Created: </strong> <%= time_ago_in_words(patient_record.created_at) %> ago (<%= patient_record.created_at.strftime("%Y-%m-%d at %H:%M:%S") %>)</sub></p>
+  </div>
+</div>

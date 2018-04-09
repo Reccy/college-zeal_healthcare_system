@@ -1,0 +1,21 @@
+console.log("Started Patient Show script.")
+
+var viewingArchives = false
+function toggleRecordView()
+{
+	if (!viewingArchives) {
+
+		$("#patient-records").addClass('d-none');
+		$("#archived-patient-records").removeClass('d-none');
+		$("#record-toggle-button").text("View Current Records");
+		viewingArchives = true
+
+	} else {
+
+		$("#patient-records").removeClass('d-none');
+		$("#archived-patient-records").addClass('d-none');
+		$("#record-toggle-button").text("View Record History");
+		viewingArchives = false
+
+	}
+}

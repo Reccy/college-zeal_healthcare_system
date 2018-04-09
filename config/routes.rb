@@ -29,5 +29,9 @@ Rails.application.routes.draw do
   # Patient routes
   resources :patients, only: [:index, :show, :create] do
     patch :assign_doctor
+
+    resources :patient_records, only: [:create] do
+      patch :archive_record
+    end
   end
 end

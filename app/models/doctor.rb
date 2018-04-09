@@ -10,6 +10,7 @@ class Doctor < ApplicationRecord
   has_many :owned_facilities, :class_name => "MedicalFacility", :foreign_key => "facility_head_id"
   has_many :owned_departments, :class_name => "Department", :foreign_key => "department_head_id"
   has_many :patients
+  has_many :patient_records
   belongs_to :workplace, :class_name => "Department", :foreign_key => "workplace_id", optional: true
 
   def full_name
