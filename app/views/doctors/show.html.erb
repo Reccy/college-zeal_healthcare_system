@@ -8,7 +8,50 @@
 
 	<!-- Doctor Information -->
 	<div class="col-md-12 col-lg-8 mb-3">
-		roles and details and stuff
+		<div class="card mt-3">
+			<div class="card-body">
+				<h5>Doctor Information</h5>
+				<% if @this_doctor.superuser? %>
+					<p><strong>SUPERUSER</strong></p>
+				<% end %>
+
+				<% 
+				    if @this_doctor.workplace == nil
+				    	workplace_dept = "None"
+				    	workplace_facility = "None"
+				    else
+				    	workplace_dept = @this_doctor.workplace.name
+				    	workplace_facility = @this_doctor.workplace.medical_facility.name
+				    end
+			    %>
+			    <p>
+			    	<strong>Facility: </strong><span class="doctor-facility"><%= workplace_facility %></span>
+					<br>
+					<strong>Department: </strong><span class="doctor-department"><%= workplace_dept %></span>
+			    </p>
+
+				<% if @this_doctor.workplace != nil %>
+					<a class="btn btn-primary" href="<%= medical_facility_department_path(@this_doctor.workplace.medical_facility.id, @this_doctor.workplace.id) %>">View Workplace</a>
+				<% end %>
+			</div>
+		</div>
+
+		<% if Department.where(department_head: @this_doctor).count > 0 || MedicalFacility.where(facility_head: @this_doctor).count > 0 %>
+		<div class="card mt-3">
+			<div class="card-body">
+				<h5>Administrative Positions</h5>
+
+				<% Department.where(department_head: @this_doctor).each do |department| %>
+					<%= render partial:"head_card", locals: {headname: "#{department.name} at #{department.medical_facility.name}", link: medical_facility_department_path(department.medical_facility.id, department.id)} %>
+				<% end %>
+
+				<% MedicalFacility.where(facility_head: @this_doctor).each do |facility| %>
+					<%= render partial:"head_card", locals: {headname: "#{facility.name}", link: medical_facility_path(facility.id)} %>
+				<% end %>
+			</div>
+		</div>
+		<% end %>
+
 	</div>
 
 	<!-- Patients and Appointments -->

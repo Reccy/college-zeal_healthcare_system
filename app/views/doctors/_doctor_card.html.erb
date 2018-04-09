@@ -1,0 +1,21 @@
+<div class="card mb-2 doctor-card">
+  <div class="card-body">
+    <h5 class="card-title"><%= doctor.full_name %></h5>
+    <% 
+    if doctor.workplace == nil
+    	workplace_dept = "None"
+    	workplace_facility = "None"
+    else
+    	workplace_dept = doctor.workplace.name
+    	workplace_facility = doctor.workplace.medical_facility.name
+    end
+    %>
+    <p class="card-text">
+    	<strong>Facility: </strong><span class="doctor-facility"><%= workplace_facility %></span>
+		<br>
+		<strong>Department: </strong><span class="doctor-department"><%= workplace_dept %></span>
+    </p>
+
+	<a class="btn btn-primary" href="<%= doctor_path(doctor.id) %>">Show</a>
+  </div>
+</div>

@@ -1,6 +1,10 @@
 class DoctorsController < ApplicationController
 	before_action :authenticate_doctor!
 
+	def index
+		@doctors = Doctor.all
+	end
+
 	def show
 		@this_doctor = Doctor.find(params[:id])
 	end

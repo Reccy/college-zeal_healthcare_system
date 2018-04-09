@@ -1,0 +1,18 @@
+console.log("Started Doctor Index script.")
+
+// Function for searching for patients
+function doctorSearch() {
+	search_value = $('#doctor-searchbox').val().toLowerCase();
+    
+    $('.doctor-card').each(function(i, obj) {
+        f_name = $(obj).find('.card-title').text().toLowerCase();
+        f_facility = $(obj).find('.doctor-facility').text().toLowerCase();
+        f_department = $(obj).find('.doctor-department').text().toLowerCase();
+
+        if (f_name.includes(search_value) || f_facility.includes(search_value) || f_department.includes(search_value)) {
+            $(obj).removeClass('d-none');
+        } else {
+            $(obj).addClass('d-none');
+        }
+    });
+}

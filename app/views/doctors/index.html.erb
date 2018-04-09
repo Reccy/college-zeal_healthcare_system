@@ -1,0 +1,20 @@
+<h1>Doctors</h1>
+
+<div class="card">
+	<div class="card-body">
+
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text" style="color: #ff000;">Search</span>
+			</div>
+			<input type="text" id="doctor-searchbox" class="form-control" placeholder="Name or Workplace..." onkeyup="doctorSearch()">
+		</div>
+
+		<% @doctors.all.each do |doctor| %>
+			<%= render partial: 'doctor_card', locals: {doctor: doctor} %>
+		<% end %>
+
+	</div>
+</div>
+
+<%= javascript_include_tag "doctor_index" %>
