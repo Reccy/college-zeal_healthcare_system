@@ -13,10 +13,12 @@
 					<strong>Assigned Doctor: </strong><%= @current_patient.doctor.full_name %>
 				</p>
 
+				<a class="btn btn-block btn-primary" href="<%= doctor_path(@current_patient.doctor.id) %>">View Doctor</a>
+
 				<% if current_doctor == @current_patient.doctor %>
-				<button class="btn btn-block btn-superuser medical-facility-selection" data-toggle="modal" data-target="#createNewRecordModal">Add New Record</button>
+				<button class="btn btn-block btn-superuser" data-toggle="modal" data-target="#createNewRecordModal">Add New Record</button>
 				<% end %>
-				<button id="record-toggle-button" class="btn btn-block btn-secondary medical-facility-selection" onclick="toggleRecordView()">View Record History</button>
+				<button id="record-toggle-button" class="btn btn-block btn-secondary" onclick="toggleRecordView()">View Record History</button>
 			</div>
 		</div>
 

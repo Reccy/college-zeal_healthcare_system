@@ -22,6 +22,17 @@ class PatientsController < ApplicationController
 		redirect_back(fallback_location: :root_path)
 	end
 
+	def create_appointment_from_referral
+		@current_patient = Patient.find(params[:patient_id])
+		@new_appointment = Appointment.create(doctor: current_doctor, patient: @current_patient, reason: params[:appointment][:reason], scheduled: params[:appointment][:scheduled])
+		@from_referral = Referral.find(params[:appointment][:referral_id])
+		@new_appointment.save!
+		@from_referral.delete
+
+		flash[:success] = "Successfully Created Appointment!"
+		redirect_back(fallback_location: :root_path)
+	end
+
 	def assign_doctor
 		@current_patient = Patient.find(params[:patient_id])
 		@new_doctor = Doctor.find(params[:patient][:doctor_id])

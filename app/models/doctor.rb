@@ -12,6 +12,7 @@ class Doctor < ApplicationRecord
   has_many :patients
   has_many :patient_records
   has_many :appointments
+  has_many :referrals
   belongs_to :workplace, :class_name => "Department", :foreign_key => "workplace_id", optional: true
 
   def full_name

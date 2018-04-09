@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       post :assign_department_head
       post :hire
 
+      resources :referrals, only: [:create]
+
       resources :doctors, only: [] do
         get :fire
       end
@@ -30,6 +32,7 @@ Rails.application.routes.draw do
   resources :patients, only: [:index, :show, :create] do
     patch :assign_doctor
     post :create_appointment
+    post :create_appointment_from_referral
 
     resources :patient_records, only: [:create] do
       patch :archive_record

@@ -15,10 +15,16 @@
 				<h5>Referrals</h5>
 
 				<ul class="list-group list-group-flush">
-					<strong>No Referrals</strong>
-					<!-- REFERRALS GO HERE -->
+					<% if @current_department.referrals.count == 0 %>
+						<strong>No Referrals</strong>
+					<% else %>
+						<% @current_department.referrals.order('referrals.created_at DESC').each do |referral| %>
+							<%= render partial:"referral_card", locals:{referral: referral} %>
+						<% end %>
+					<% end %>
 				</ul>
 
+				<button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#createReferralModal">Create Referral</button>
 				<a class="btn btn-secondary" href="<%= medical_facility_path(@current_facility.id) %>">Back to <%= @current_facility.name %></a>
 			</div>
 		</div>
@@ -48,7 +54,7 @@
 						<button class="btn btn-superuser type="submit" data-toggle="modal" data-target="#doctorSearchModal">Reassign</button>
 						<%= link_to "Remove", medical_facility_department_remove_department_head_path(@current_facility.id, @current_department.id), :class => "btn btn-superuser" %>
 					<% else %>
-						<button class="btn btn-superuser type="submit" data-toggle="modal" data-target="#doctorSearchModal">Assign</button>
+						<button class="btn btn-superuser" type="submit" data-toggle="modal" data-target="#doctorSearchModal">Assign</button>
 					<% end %>
 				<% end %>
 				</div>
@@ -58,7 +64,7 @@
 		<!-- Doctor List -->
 		<div class="card mt-3">
 			<div class="card-body">
-				<h5>Doctors</h5
+				<h5>Doctors</h5>
 				<!-- Superuser Controls for hiring new Doctor -->
 				<% if current_doctor.superuser? %>
 					<button class="btn btn-sm btn-block btn-superuser mb-3" type="submit" data-toggle="modal" data-target="#hireDoctorModal">Hire Doctor</button>
@@ -87,5 +93,6 @@
 <%= render partial: "doctor_search", locals: {superuser_action: true, modal_title: "Assign Head of #{@current_department.name}", primary_action_text: "Assign", primary_action_path: medical_facility_department_assign_department_head_path(@current_facility.id, @current_department.id), primary_action_method: "post"} %>
 
 <%= render partial: "doctor_hire_modal", locals: {department: @current_department} %>
+<%= render partial: "create_referral_modal" %>
 
 <%= javascript_include_tag "department_show" %>

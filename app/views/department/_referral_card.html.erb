@@ -1,0 +1,18 @@
+<div class="card mb-2 referral-card">
+  <div class="card-body">
+    
+	<h5 class="card-title"><%= referral.patient.full_name %></h5>
+	<p class="mb-0">
+		<strong>Referred by: </strong> <%= referral.doctor.full_name %>
+		<br>
+		<strong>Reason:</strong> <%= referral.reason %>
+	</p>
+
+	<% if referral.department.employees.include?(current_doctor) %>
+	<button class="btn btn-sm btn-superuser mt-3" type="submit" data-toggle="modal" data-target="#refferedAppointmentModal-<%= referral.id %>">Create Appointment</button>
+
+	<%= render partial:"referred_appointment_modal", locals: {referral: referral} %>
+	<% end %>
+
+  </div>
+</div>
