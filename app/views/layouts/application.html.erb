@@ -48,13 +48,16 @@
 	</nav>
   	
   	<!-- Body content -->
-  	<div data-turbolinks=false class="container mb-3")">
+  	<div data-turbolinks=false class="container mb-3">
   		
   		<!-- Padding for header -->
   		<div class="row pt-5 pb-4"></div>
 
 		<% flash.each do |key, value| %>
-			<div class="alert alert-<%= key %>"><%= value %></div>
+			<div class="alert alert-<%= key %>">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<%= value %>
+			</div>
 		<% end %>
 
 	    <%= yield %>
