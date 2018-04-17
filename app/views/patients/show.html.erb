@@ -43,6 +43,10 @@
 					<% @current_patient.appointments.order('appointments.scheduled ASC').each do |appointment| %>
 						<%= render partial: "appointment_card", locals: {appointment: appointment} %>
 					<% end %>
+
+					<% if @current_patient.appointments.empty? %>
+						<%= @current_patient.full_name %> has no appointments.
+					<% end %>
 				</ul>
 			</div>
 		</div>
