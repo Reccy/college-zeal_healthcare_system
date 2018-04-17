@@ -22,3 +22,20 @@ function patientSearch() {
         }
     });
 }
+
+// Function for searching for appointments
+function appointmentSearch() {
+    search_value = $('#appointment-searchbox').val().toLowerCase();
+    
+    $('.appointment-card').each(function(i, obj) {
+        f_name = $(obj).find('.card-title').text().toLowerCase();
+        f_reason = $(obj).find('.appointment-card-reason').text().toLowerCase();
+        f_datetime = $(obj).find('.appointment-card-datetime').text().toLowerCase();
+
+        if (f_name.includes(search_value) || f_reason.includes(search_value) || f_datetime.includes(search_value)) {
+            $(obj).removeClass('d-none');
+        } else {
+            $(obj).addClass('d-none');
+        }
+    });
+}
