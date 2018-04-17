@@ -31,7 +31,15 @@
 				<button class="btn btn-block btn-superuser medical-facility-selection mb-3" data-toggle="modal" data-target="#createAppointmentModal">Create Appointment</button>
 				<% end %>
 
-				<ul id="patient_records" class="list-group list-group-flush">
+				<!-- Appointment Search -->
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" style="color: #ff000;">Search</span>
+					</div>
+					<input type="text" id="appointment-searchbox" class="form-control" placeholder="Patient Name, Time or Reason..." onkeyup="appointmentSearch()">
+				</div>
+
+				<ul id="appointments" class="list-group list-group-flush">
 					<% @current_patient.appointments.order('appointments.scheduled ASC').each do |appointment| %>
 						<%= render partial: "appointment_card", locals: {appointment: appointment} %>
 					<% end %>
@@ -54,6 +62,10 @@
 							<%= render partial: "patient_record_card", locals: {patient_record: patient_record} %>
 						<% end %>
 					<% end %>
+
+					<% if @current_patient.patient_records.where(is_archived: false).empty? %>
+						<%= @current_patient.full_name %> has no current records.
+					<% end %>
 				</ul>
 
 			</div>
@@ -73,6 +85,9 @@
 					<% end %>
 				</ul>
 
+				<% if @current_patient.patient_records.where(is_archived: true).empty? %>
+					<%= @current_patient.full_name %> has no archived records.
+				<% end %>
 			</div>
 		</div>
 

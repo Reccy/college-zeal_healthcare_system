@@ -3,15 +3,15 @@
     <h5 class="card-title"><%= appointment.doctor.full_name %></h5>
     <p class="card-text">
 
-		<strong>Reason: </strong> <%= appointment.reason %>
+		<strong>Reason: </strong><span class="appointment-card-reason"><%= appointment.reason %></span>
 		<br>
 
     	<% if appointment.scheduled > DateTime.now %>
             <% appointment_text = "Cancel Appointment" %>
-    		<sub>Starts <%= time_ago_in_words(appointment.scheduled) %> from now (<%= appointment.scheduled.strftime("%Y-%m-%d at %H:%M:%S") %>)</sub>
+    		<sub>Starts <%= time_ago_in_words(appointment.scheduled) %> from now <span class="appointment-card-datetime">(<%= appointment.scheduled.strftime("%Y-%m-%d at %H:%M:%S") %>)</span></sub>
     	<% else %>
             <% appointment_text = "Remove" %>
-    		<sub>Began <%= time_ago_in_words(appointment.scheduled) %> ago (<%= appointment.scheduled.strftime("%Y-%m-%d at %H:%M:%S") %>)</sub>
+    		<sub>Began <%= time_ago_in_words(appointment.scheduled) %> ago <span class="appointment-card-datetime">(<%= appointment.scheduled.strftime("%Y-%m-%d at %H:%M:%S") %>)</span></sub>
     	<% end %>
     </p>
 

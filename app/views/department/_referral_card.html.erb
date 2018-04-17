@@ -9,10 +9,12 @@
 	</p>
 
 	<% if referral.department.employees.include?(current_doctor) %>
-	<button class="btn btn-sm btn-superuser mt-3" type="submit" data-toggle="modal" data-target="#refferedAppointmentModal-<%= referral.id %>">Create Appointment</button>
+		<button class="btn btn-sm btn-superuser mt-3" type="submit" data-toggle="modal" data-target="#refferedAppointmentModal-<%= referral.id %>">Create Appointment</button>
 
-	<%= render partial:"referred_appointment_modal", locals: {referral: referral} %>
+		<%= render partial:"referred_appointment_modal", locals: {referral: referral} %>
 	<% end %>
+
+	<a class="btn btn-primary btn-sm mt-3" href="<%= patient_path(referral.patient.id) %>">View Patient</a>
 
   </div>
 </div>
