@@ -13,6 +13,19 @@ class PatientsController < ApplicationController
 		redirect_back(fallback_location: :root_path)
 	end
 
+	def update
+		@current_patient = Patient.find(params[:id])
+
+		@current_patient.update_attribute(:phone_number, params[:patient][:phone_number])
+		@current_patient.update_attribute(:email, params[:patient][:email])
+		@current_patient.update_attribute(:address, params[:patient][:address])
+
+		@current_patient.save!
+
+		flash[:success] = "Successfully Updated Patient Information!"
+		redirect_back(fallback_location: :root_path)
+	end
+
 	def create_appointment
 		@current_patient = Patient.find(params[:patient_id])
 		@new_appointment = Appointment.create(doctor: current_doctor, patient: @current_patient, reason: params[:appointment][:reason], scheduled: params[:appointment][:scheduled])

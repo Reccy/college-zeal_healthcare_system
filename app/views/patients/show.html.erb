@@ -10,15 +10,44 @@
 				<p>
 					<strong>Patient Name: </strong><%= @current_patient.full_name %>
 					<br>
+					<strong>Date of Birth: </strong><%= @current_patient.date_of_birth.strftime("%e-%B-%Y %I:%M %P") %>
+					
+					<br>
+					<br>
+
+					<strong>Address: </strong>
+					<% if @current_patient.address? %>
+						<%= @current_patient.address %>
+					<% else %>
+						No Address Given
+					<% end %>
+					<br>
+					<strong>E-Mail: </strong>
+					<% if @current_patient.email? %>
+						<%= @current_patient.email %>
+					<% else %>
+						No E-Mail Given
+					<% end %>
+					<br>
+					<strong>Phone Number: </strong>
+					<% if @current_patient.phone_number? %>
+						<%= @current_patient.phone_number %>
+					<% else %>
+						No Phone Number Given
+					<% end %>
+
+					<br>
+					<br>
+
 					<strong>Assigned Doctor: </strong><%= @current_patient.doctor.full_name %>
 				</p>
 
 				<a class="btn btn-block btn-primary" href="<%= doctor_path(@current_patient.doctor.id) %>">View Doctor</a>
 
 				<% if current_doctor == @current_patient.doctor %>
-				<button class="btn btn-block btn-superuser" data-toggle="modal" data-target="#createNewRecordModal">Add New Record</button>
+					<button class="btn btn-block btn-superuser" data-toggle="modal" data-target="#editPatientModal">Edit Patient</button>
+					<!-- <button class="btn btn-block btn-secondary" data-toggle="modal" data-target="#editPatientModal">Transaction Report</button> -->
 				<% end %>
-				<button id="record-toggle-button" class="btn btn-block btn-secondary" onclick="toggleRecordView()">View Record History</button>
 			</div>
 		</div>
 
@@ -54,13 +83,18 @@
 	</div>
 
 	<div class="col-md-12 col-lg-8">
-
+		
 		<!-- Patient Records (Normal) -->
 		<div class="card" id="patient-records">
 			<div class="card-body">
 				<h5>Patient Record</h5>
 
-				<ul id="patient_records" class="list-group list-group-flush">
+				<button id="record-toggle-button" class="btn btn-secondary" onclick="toggleRecordView()">View Record Archive</button>
+				<% if current_doctor == @current_patient.doctor %>
+					<button class="btn btn-superuser" data-toggle="modal" data-target="#createNewRecordModal">Add New Record</button>
+				<% end %>
+
+				<ul id="patient_records" class="list-group list-group-flush mt-3">
 					<% @current_patient.patient_records.order('patient_records.created_at DESC').each do |patient_record| %>
 						<% if !patient_record.is_archived %>
 							<%= render partial: "patient_record_card", locals: {patient_record: patient_record} %>
@@ -81,7 +115,9 @@
 			<div class="card-body">
 				<h5>Archived Patient Record</h5>
 
-				<ul id="patient_records" class="list-group list-group-flush">
+				<button id="record-toggle-button" class="btn btn-secondary" onclick="toggleRecordView()">View Current Records</button>
+
+				<ul id="patient_records" class="list-group list-group-flush mt-3">
 					<% @current_patient.patient_records.order('patient_records.created_at DESC').each do |patient_record| %>
 						<% if patient_record.is_archived %>
 							<%= render partial: "archived_patient_record_card", locals: {patient_record: patient_record} %>
@@ -100,5 +136,6 @@
 
 <%= render partial:"create_new_record_modal" %>
 <%= render partial:"create_appointment_modal" %>
+<%= render partial:"edit_patient_modal", locals: {patient: @current_patient} %>
 
 <%= javascript_include_tag "patient_show" %>

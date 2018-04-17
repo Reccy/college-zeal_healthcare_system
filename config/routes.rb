@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :doctors, only: [:index, :show]
 
   # Patient routes
-  resources :patients, only: [:index, :show, :create] do
+  resources :patients, only: [:index, :show, :create, :update] do
     patch :assign_doctor
     post :create_appointment
     post :create_appointment_from_referral

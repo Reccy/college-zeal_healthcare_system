@@ -1,0 +1,25 @@
+<div class="modal fade" id="editPatientModal" tabindex="-1" role="dialog" aria-labelledby="editPatientModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Edit <%= patient.full_name.possessive %> Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= bootstrap_form_with(model: patient, url:patient_path(@current_patient.id), local: true) do |f| %>
+    			<%= f.text_field :first_name %>
+          <%= f.text_field :last_name %>
+          <%= f.text_field :phone_number %>
+          <%= f.text_field :email %>
+          <%= f.text_field :address %>
+      </div>
+      <div class="modal-footer">
+      	<%= f.submit "Update Information", :class => "btn btn-superuser" %>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    		<% end %>
+      </div>
+    </div>
+  </div>
+</div>
