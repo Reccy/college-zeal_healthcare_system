@@ -1,0 +1,37 @@
+<h1>Auditor Report</h1>
+
+<div class="card mt-3">
+    <div class="card-body pb-0">
+        <%= bootstrap_form_for(:audit_query, url: auditor.audits_path, remote: true, html: { id: "auditform" } ) do |f| %>
+            <%= f.select :decorator_list, options_for_select(Auditor::AuditRecord.select(:subject).map(&:subject).uniq), {hide_label: true}, {:multiple => true, :id => "selected-decorators"} %>
+            <%= f.submit "Generate Report", class: "btn btn-primary" %>
+        <% end  %>
+
+        <p>
+            <h5>No report generated. Please select report options above and click "Generate Report" to retrieve audit.</h5>
+        </p>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#selected-decorators').multiselect({
+            disableIfEmpty: true,
+            includeSelectAllOption: true,
+            numberDisplayed: 0,
+            buttonClass: "btn btn-secondary",
+            nonSelectedText: "Please Select Audit Subjects",
+            nSelectedText: ' Report Options Selected'
+        });
+
+        document.body.addEventListener('ajax:success', function(event) {
+            detail = event.detail;
+            data = detail[0], status = detail[1],  xhr = detail[2];
+            handleQueryResponse(data);
+        })
+
+        function handleQueryResponse(response) {
+            console.log(response);
+        }
+    });
+</script>

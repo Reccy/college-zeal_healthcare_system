@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  # Auditer setup
+  mount Auditor::Engine, at: '/', as: 'auditor'
   
   # Devise setup
   devise_for :doctors, except: [:show], path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register'}, :controllers => { registrations: 'registrations' }

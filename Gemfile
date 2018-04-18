@@ -84,3 +84,6 @@ gem 'js-routes'
 
 # Allows client side validation to occur
 gem 'client_side_validations'
+
+# Auditing engine
+gem 'auditor', path: 'auditor'

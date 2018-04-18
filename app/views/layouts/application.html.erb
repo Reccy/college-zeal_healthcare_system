@@ -39,6 +39,11 @@
 		            <li class="nav-item">
 		                <a class="nav-link" href="<%= medical_facility_index_path %>">Facilities</a>
 		            </li>
+		            <% if current_doctor.superuser? %>
+						<li class="nav-item">
+							<a class="nav-link" href="<%= auditor.audits_path %>">Auditor</a>
+						</li>
+					<% end %>
 		            <li class="nav-item">
 		                <a class="nav-link" href="<%= destroy_doctor_session_path %>">Logout</a>
 		            </li>
