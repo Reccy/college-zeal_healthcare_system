@@ -1,7 +1,6 @@
 require_dependency "auditor/application_controller"
 
 module Auditor
-
 	class AuditsController < ApplicationController
 
 		def index
@@ -11,14 +10,7 @@ module Auditor
 		def create
 			@decorator_list = params[:audit_query][:decorator_list].reject { |c| c.empty? }
 
-			audit_options = {
-				"AppConfig" => AppConfigReport,
-				"RecordUpdate" => RecordUpdateReport,
-				"RecordArchival" => RecordArchivalReport,
-				"PatientCreated" => PatientCreatedReport,
-				"PatientReferred" => PatientReferredReport,
-				"PatientViewed" => PatientViewedReport
-			}
+			audit_options = get_options
 
 			audit = SimpleReport.new()
 			@decorator_list.each do |option|
@@ -44,7 +36,6 @@ module Auditor
 
 	# Decorator pattern for searching the Audit Record
 	class SimpleReport
-
 		attr_accessor :search_subjects
 
 		def initialize()
@@ -66,43 +57,6 @@ module Auditor
 	class AppConfigReport < ReportDecorator
 		def get_report
 			@original_report.search_subjects.push("AppConfig")
-			return @original_report.get_report
-		end
-	end
-
-	# EXTRACT THESE TO THE MAIN APP WHEN DONE LOL
-
-	class RecordUpdateReport < ReportDecorator
-		def get_report
-			@original_report.search_subjects.push("RecordUpdate")
-			return @original_report.get_report
-		end
-	end	
-
-	class RecordArchivalReport < ReportDecorator
-		def get_report
-			@original_report.search_subjects.push("RecordArchival")
-			return @original_report.get_report
-		end
-	end
-
-	class PatientCreatedReport < ReportDecorator
-		def get_report
-			@original_report.search_subjects.push("PatientCreated")
-			return @original_report.get_report
-		end
-	end
-
-	class PatientReferredReport < ReportDecorator
-		def get_report
-			@original_report.search_subjects.push("PatientReferred")
-			return @original_report.get_report
-		end
-	end
-
-	class PatientViewedReport < ReportDecorator
-		def get_report
-			@original_report.search_subjects.push("PatientViewed")
 			return @original_report.get_report
 		end
 	end

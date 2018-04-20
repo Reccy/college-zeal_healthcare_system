@@ -22,6 +22,6 @@ module ZealHealthcareSystem
 	    Devise::ConfirmationsController.layout "landing_page"
 	    Devise::UnlocksController.layout "landing_page"
 	    Devise::PasswordsController.layout "landing_page"
-	end
+	  end
   end
 end

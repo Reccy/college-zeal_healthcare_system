@@ -1,7 +1,7 @@
 <div class="card mb-2 medical-facility-card">
   <div class="card-body">
     <h5 class="card-title"><%= facility.name %></h5>
-    <p class="card-text"><%= facility.address %></p>
+    <p class="card-text"><strong>Address: </strong> <%= facility.address %><br><strong>Type: </strong> <%= facility.facility_type %></p>
 
     <div class="btn-group justify-content-between btn-block" role="group">
 	    <button class="btn btn-block btn-secondary" onclick="selectFacility(getFacilityByDbId(<%= facility.id %>))">View</button>
