@@ -7,9 +7,13 @@
             <%= f.submit "Generate Report", class: "btn btn-primary" %>
         <% end  %>
 
-        <p>
-            <h5>No report generated. Please select report options above and click "Generate Report" to retrieve audit.</h5>
-        </p>
+        <ul class="list-group list-group-flush mt-3">
+            <span id="cards-body">
+                <p>
+                    <h5>Please select report options above and click "Generate Report" to retrieve audit.</h5>
+                </p>
+            </span>
+        </ul>
     </div>
 </div>
 
@@ -21,7 +25,12 @@
             numberDisplayed: 0,
             buttonClass: "btn btn-secondary",
             nonSelectedText: "Please Select Audit Subjects",
-            nSelectedText: ' Report Options Selected'
+            nSelectedText: ' Report Options Selected',
+            onChange: function(option, checked, select) {
+                console.log(option);
+                console.log(checked);
+                console.log(select);
+            }
         });
 
         document.body.addEventListener('ajax:success', function(event) {
@@ -31,7 +40,8 @@
         })
 
         function handleQueryResponse(response) {
-            console.log(response);
+            console.log(response.content);
+            $('#cards-body').html(response.content);
         }
     });
 </script>

@@ -30,9 +30,16 @@ module Auditor
 			report = audit.get_report.sort_by {|obj| obj.created_at}
 			report = report.reverse
 
-			render json: report.to_json
+			render json: {
+				content:
+					render_to_string(
+						partial: "audit_card_container",
+						formats: :html,
+						layout: false,
+						locals: {report: report}
+					)
+			}
 		end
-
 	end
 
 	# Decorator pattern for searching the Audit Record

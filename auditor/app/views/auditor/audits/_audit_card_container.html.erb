@@ -1,0 +1,9 @@
+<% report.each do |entry| %>
+	<%= render partial: "audit_card", locals: { entry: entry } %>
+<% end %>
+
+<% if report.empty? %>
+	<p>
+        <h5>No results found with current filters. Please select differerent filters.</h5>
+    </p>
+<% end %>
