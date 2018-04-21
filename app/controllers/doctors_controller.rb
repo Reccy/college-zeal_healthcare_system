@@ -22,6 +22,8 @@ class DoctorsController < ApplicationController
 			redirect_back(fallback_location: :root_path)
 		end
 		
+		Auditor::AuditRecord.create(entry: "#{current_doctor.full_name} fired #{@fired_doctor.full_name} from #{@current_facility.name}.", subject: "DepartmentUpdate", author: current_doctor.full_name)
+
 		flash[:success] = 'Successfully fired!'
 		redirect_back(fallback_location: :root_path)
 	end

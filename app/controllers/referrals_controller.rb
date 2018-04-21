@@ -9,6 +9,8 @@ class ReferralsController < ApplicationController
 		@current_department.referrals << Referral.create(doctor: current_doctor, reason: params[:referral][:reason], patient: @referred_patient)
 		@current_department.save!
 
+		Auditor::AuditRecord.create(entry: "#{current_doctor.full_name} referred #{@referred_patient.full_name} to #{@current_department.medical_facility.name.possessive} #{@current_department.name} with the reason: #{params[:referral][:reason]}", subject: "PatientReferred", author: current_doctor.full_name)
+
 		flash[:success] = "Successfully created deferral!"
 		redirect_back(fallback_location: :root_path)
 	end

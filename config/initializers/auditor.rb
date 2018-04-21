@@ -13,7 +13,11 @@ module Auditor
 				"RecordArchival" => RecordArchivalReport,
 				"PatientCreated" => PatientCreatedReport,
 				"PatientReferred" => PatientReferredReport,
-				"PatientViewed" => PatientViewedReport
+				"PatientViewed" => PatientViewedReport,
+				"PatientUpdate" => PatientUpdateReport,
+				"DoctorAssignment" => DoctorAssignmentReport,
+				"AppointmentCreated" => AppointmentCreatedReport,
+				"AppointmentRemoved" => AppointmentRemovedReport
 			}
 
 		end
@@ -53,6 +57,34 @@ module Auditor
 	class PatientViewedReport < ReportDecorator
 		def get_report
 			@original_report.search_subjects.push("PatientViewed")
+			return @original_report.get_report
+		end
+	end
+
+	class PatientUpdateReport < ReportDecorator
+		def get_report
+			@original_report.search_subjects.push("PatientUpdate")
+			return @original_report.get_report
+		end
+	end
+
+	class DoctorAssignmentReport < ReportDecorator
+		def get_report
+			@original_report.search_subjects.push("DoctorAssignment")
+			return @original_report.get_report
+		end
+	end
+
+	class AppointmentCreatedReport < ReportDecorator
+		def get_report
+			@original_report.search_subjects.push("AppointmentCreated")
+			return @original_report.get_report
+		end
+	end
+
+	class AppointmentRemovedReport < ReportDecorator
+		def get_report
+			@original_report.search_subjects.push("AppointmentRemoved")
 			return @original_report.get_report
 		end
 	end
