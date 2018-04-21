@@ -59,6 +59,9 @@
 				<% @medical_facilities.each do |facility| %>
 					<%= render partial: "facility_card", locals: {facility: facility} %>
 				<% end %>
+				<% if @medical_facilities.empty? %>
+					No medical facilities have been created yet.
+				<% end %>
 				</ul>
 			</div>
 		</div>

@@ -87,6 +87,13 @@
 							<% @this_doctor.appointments.order('appointments.scheduled ASC').each do |appointment| %>
 								<%= render partial:"appointment_card", locals: {appointment: appointment} %>
 							<% end %>
+							<% if @this_doctor.appointments.empty? %>
+								<% if current_doctor == @this_doctor %>
+									You have no appointments. Yay!
+								<% else %>
+									<%= @this_doctor.full_name %> has no appointments.
+								<% end %>
+							<% end %>
 						</ul>
 					</div>
 				</div>
@@ -113,6 +120,13 @@
 						<ul class="list-group list-group-flush">
 							<% @this_doctor.patients.each do |patient| %>
 								<%= render partial:"patient_card", locals: {patient: patient} %>
+							<% end %>
+							<% if @this_doctor.patients.empty? %>
+								<% if current_doctor == @this_doctor %>
+									You have no patients. Yay!
+								<% else %>
+									<%= @this_doctor.full_name %> has no patients.
+								<% end %>
 							<% end %>
 						</ul>
 					</div>

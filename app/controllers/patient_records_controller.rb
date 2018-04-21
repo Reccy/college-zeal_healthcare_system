@@ -25,7 +25,7 @@ class PatientRecordsController < ApplicationController
 		@archived_record.update_attribute(:archived_at, DateTime.now)
 		@archived_record.save!
 
-		Auditor::AuditRecord.create(entry: "#{current_doctor.full_name} archived one of #{@new_record.patient.full_name.possessive} records titled \"#{@archived_record.title}\": #{@archived_record.content}", subject: "RecordArchival", author: current_doctor.full_name)
+		Auditor::AuditRecord.create(entry: "#{current_doctor.full_name} archived one of #{@archived_record.patient.full_name.possessive} records titled \"#{@archived_record.title}\": #{@archived_record.content}", subject: "RecordArchival", author: current_doctor.full_name)
 
 		flash[:success] = 'Successfully archived record!'
 		redirect_back(fallback_location: :root_path)

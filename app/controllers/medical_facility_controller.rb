@@ -24,9 +24,14 @@ class MedicalFacilityController < ApplicationController
 		@current_facility = MedicalFacility.find(params[:id])
 		redirect_to "/403.html" and return false unless current_doctor.can_edit_facility?(@current_facility)
 
+		old_name = @current_facility.name
+		old_facility_type = @current_facility.facility_type
+		old_address = @current_facility.address
+		old_description = @current_facility.description
+
 		if @current_facility.update_attributes(medical_facility_params)
 
-			Auditor::AuditRecord.create(entry: "#{current_doctor.full_name} updated facility: #{@new_facility.name}. Name: (#{old_name} -> #{@current_facility.name}) | Address: (#{old_address} -> #{@current_facility.address}) | Description: (#{old_description} -> #{@current_facility.description})", subject: "FacilityUpdate", author: current_doctor.full_name)
+			Auditor::AuditRecord.create(entry: "#{current_doctor.full_name} updated facility: #{@current_facility.name}. Name: (#{old_name} -> #{@current_facility.name}) | Facility Type: (#{old_facility_type} -> #{@current_facility.facility_type}) | Address: (#{old_address} -> #{@current_facility.address}) | Description: (#{old_description} -> #{@current_facility.description})", subject: "FacilityUpdate", author: current_doctor.full_name)
 
 			redirect_to url_for(@current_facility)
 		else
@@ -45,10 +50,10 @@ class MedicalFacilityController < ApplicationController
 		redirect_to "/403.html" and return false unless current_doctor.superuser?
 
 		@deleted_facility = MedicalFacility.find(params[:id])
-		deleted_facility_name = @deleted_facility
+		deleted_facility_name = @deleted_facility.name
 		@deleted_facility.delete
 
-		Auditor::AuditRecord.create(entry: "#{current_doctor.full_name} destroyed facility #{deleted_facility_name}.", subject: "FacilityDestroyed", author: current_doctor.full_name)
+		Auditor::AuditRecord.create(entry: "#{current_doctor.full_name} destroyed #{deleted_facility_name}.", subject: "FacilityDestroyed", author: current_doctor.full_name)
 
 		redirect_to medical_facility_index_path(last_deleted_facility: @deleted_facility.name)
 	end
@@ -108,6 +113,6 @@ class MedicalFacilityController < ApplicationController
 	private
 
 	def medical_facility_params
-		params.require(:medical_facility).permit(:name, :address, :description, :latitude, :longitude)
+		params.require(:medical_facility).permit(:name, :address, :description, :facility_type, :latitude, :longitude)
 	end
 end

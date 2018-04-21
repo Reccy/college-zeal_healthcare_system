@@ -17,7 +17,7 @@ $ gem install auditor
 
 Install the migrations:
 ```bash
-$ ruby auditor:install:migrations
+$ rails auditor:install:migrations
 ```
 
 Then run the migrations:

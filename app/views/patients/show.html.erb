@@ -9,8 +9,6 @@
 				<h5>Patient Information</h5>
 				<p>
 					<strong>Patient Name: </strong><%= @current_patient.full_name %>
-					<br>
-					<strong>Date of Birth: </strong><%= @current_patient.date_of_birth.strftime("%e-%B-%Y %I:%M %P") %>
 					
 					<br>
 					<br>
@@ -46,13 +44,12 @@
 
 				<% if current_doctor == @current_patient.doctor %>
 					<button class="btn btn-block btn-superuser" data-toggle="modal" data-target="#editPatientModal">Edit Patient</button>
-					<!-- <button class="btn btn-block btn-secondary" data-toggle="modal" data-target="#editPatientModal">Transaction Report</button> -->
 				<% end %>
 			</div>
 		</div>
 
 		<!-- Scheduled Appointments -->
-		<div class="card mt-3">
+		<div class="card mt-3 mb-3">
 			<div class="card-body">
 				<h5>Appointments</h5>
 

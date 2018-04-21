@@ -17,7 +17,12 @@ module Auditor
 				"PatientUpdate" => PatientUpdateReport,
 				"DoctorAssignment" => DoctorAssignmentReport,
 				"AppointmentCreated" => AppointmentCreatedReport,
-				"AppointmentRemoved" => AppointmentRemovedReport
+				"AppointmentRemoved" => AppointmentRemovedReport,
+				"FacilityCreated" => FacilityCreatedReport,
+				"FacilityUpdate" => FacilityUpdateReport,
+				"FacilityDestroyed" => FacilityDestroyedReport,
+				"DepartmentCreated" => DepartmentCreatedReport,
+				"DepartmentUpdate" => DepartmentUpdatedReport
 			}
 
 		end
@@ -85,6 +90,41 @@ module Auditor
 	class AppointmentRemovedReport < ReportDecorator
 		def get_report
 			@original_report.search_subjects.push("AppointmentRemoved")
+			return @original_report.get_report
+		end
+	end
+
+	class FacilityCreatedReport < ReportDecorator
+		def get_report
+			@original_report.search_subjects.push("FacilityCreated")
+			return @original_report.get_report
+		end
+	end
+
+	class FacilityUpdateReport < ReportDecorator
+		def get_report
+			@original_report.search_subjects.push("FacilityUpdate")
+			return @original_report.get_report
+		end
+	end
+
+	class FacilityDestroyedReport < ReportDecorator
+		def get_report
+			@original_report.search_subjects.push("FacilityDestroyed")
+			return @original_report.get_report
+		end
+	end
+
+	class DepartmentCreatedReport < ReportDecorator
+		def get_report
+			@original_report.search_subjects.push("DepartmentCreated")
+			return @original_report.get_report
+		end
+	end
+
+	class DepartmentUpdatedReport < ReportDecorator
+		def get_report
+			@original_report.search_subjects.push("DepartmentUpdate")
 			return @original_report.get_report
 		end
 	end

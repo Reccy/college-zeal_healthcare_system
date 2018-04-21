@@ -13,6 +13,9 @@
 		<% Patient.all.each do |patient| %>
 			<%= render partial: 'patient_card', locals: {patient: patient} %>
 		<% end %>
+		<% if Patient.all.empty? %>
+			No patients have been added yet.
+		<% end %>
 
 	</div>
 </div>

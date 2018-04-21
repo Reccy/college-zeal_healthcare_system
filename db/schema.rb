@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 20180418083242) do
     t.string "phone_number"
     t.string "email"
     t.string "address"
-    t.datetime "date_of_birth", default: "1998-04-17 09:50:59", null: false
+    t.datetime "date_of_birth", default: "1998-04-21 17:22:54", null: false
     t.index ["doctor_id"], name: "index_patients_on_doctor_id"
   end
 
