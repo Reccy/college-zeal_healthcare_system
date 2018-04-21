@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Redirect to login if the user is not authenticated
-  def authenticate_user!
+  def authenticate_doctor!
     if doctor_signed_in?
       super
     else

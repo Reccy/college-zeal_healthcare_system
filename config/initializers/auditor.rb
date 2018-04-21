@@ -5,6 +5,14 @@ module Auditor
 	# Configure mapping between subject and decorator #
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 	class AuditsController < ApplicationController
+		before_action :authenticate_superuser!
+
+		# Check to ensure that only the superusers can view the audit log
+		def authenticate_superuser!
+			return if current_doctor.superuser?
+			redirect_to "/403.html"
+		end
+
 		def get_options
 
 			audit_options = {
